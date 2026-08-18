@@ -1,0 +1,99 @@
+<script>
+  const form = document.querySelector("#contact-form");
+  const message = document.querySelector("#form-message");
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch(form.action, {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (response.ok) {
+        message!.textContent = "Mensaje recibido :)";
+        form.reset();
+      } else {
+        message!.textContent = "Ha ocurrido un problema. Inténtalo de nuevo.";
+      }
+    } catch (error) {
+      message!.textContent = "No hemos podido enviar el mensaje.";
+    }
+  });
+</script>
+
+<section id="contact">
+  <h1>Contacto</h1>
+
+  <section id="form">
+    <p>
+      Cuéntanos un poco sobre tu proyecto y nos pondremos en contacto contigo.
+    </p>
+
+    <form
+      id="contact-form"
+      action="https://formspree.io/f/xwlerjdb"
+      method="POST"
+    >
+      <p>
+        <label>
+          Nombre
+          <input type="text" name="name" required />
+        </label>
+      </p>
+
+      <p>
+        <label>
+          Empresa
+          <input type="text" name="business" required />
+        </label>
+      </p>
+
+      <p>
+        <label>
+          Correo
+          <input type="email" name="email" required />
+        </label>
+      </p>
+
+      <p>
+        <label>
+          Telefono
+          <input type="tel" name="phone" required />
+        </label>
+      </p>
+
+      <p>
+        <label>
+          Asunto
+          <input type="text" name="matter" required />
+        </label>
+      </p>
+
+      <p>
+        <label>
+          Cuentanos un poco más:
+          <textarea name="comment"></textarea>
+        </label>
+      </p>
+
+      <p>
+        <label>
+           <input type="checkbox" name="privacy" id="privay" required>
+        </label> He leído y acepto la <a target="_blank" rel="noopener" href="../privacy">Politica de Privacidad</a>
+      </p>
+      <p>
+        <label>
+          <input type="submit" />
+        </label>
+      </p>
+    </form>
+    <p id="form-message" aria-live="polite"></p>
+  </section>
+</section>

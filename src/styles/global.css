@@ -1,0 +1,174 @@
+:root {
+    /* Colores */
+    --color-bg: #ffffff;
+    --color-text: #111111;
+    --color-primary: #000000;
+    --color-secondary: #666666;
+
+    /* Tipografías */
+    --font-display: sans-serif;
+    --font-body: sans-serif;
+
+    /* Tamaños de texto */
+    --text-small: 0.875rem;
+    --text-body: 1rem;
+    --text-large: 1.25rem;
+    --text-h2: 3rem;
+    --text-h1: 6rem;
+
+    /* Espaciado */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 4rem;
+    --spacing-xl: 8rem;
+
+    /* Bordes */
+    --radius-sm: 8px;
+    --radius-lg: 24px;
+
+    /* Contenedor */
+    --container-width: 1200px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+}
+
+.navbar {
+    position: relative;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    z-index: 1002;
+
+    background: transparent;
+    transition: background 0.3s ease, backdrop-filter 0.3s ease;
+}
+.navbar.scrolled {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+}
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    z-index: 1000;
+}
+
+.menu-button {
+    width: 40px;
+    height: 40px;
+
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 5px;
+
+    background: none;
+    border: none;
+
+    cursor: pointer;
+
+    z-index: 1002;
+}
+
+.menu-button span {
+    width: 25px;
+    height: 2px;
+
+    background: var(--color-text);
+
+    transition:
+        transform 0.3s ease,
+        opacity 0.3s ease;
+}
+
+.menu {
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    background: var(--color-bg);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+
+    z-index: 1001;
+}
+
+.menu.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.menu-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 1.5rem;
+}
+
+.menu-links a {
+    font-size: 3rem;
+
+    text-decoration: none;
+    color: var(--color-text);
+}
+
+.menu-button.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.menu-button.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-button.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+.footer {
+    background: var(--color-primary);
+    color: white;
+}
+
+.logo img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
