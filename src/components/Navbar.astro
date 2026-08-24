@@ -1,8 +1,11 @@
 <nav class="navbar">
   <a class="logo" href="/#hero">
-    <img src="/logo/sloth.jpg" alt="Logo PAUSAO" />
-    PAUSAO
+    <img src="/logo/logoWeb.png" alt="Logo PAUSAO" />
   </a>
+  <div class="slogan">
+    <p>TU NEGOCIO</p>
+    <p>SIN CORRER</p>
+  </div>
 
   <div class="nav-links">
     <a href="/#projects">Trabajos</a>
@@ -21,19 +24,27 @@
   <div class="menu-links">
     <a href="/services#informatic">Informática</a>
     <a href="/services#marketing">Marketing</a>
-    <a href="/proyectos">Proyectos</a>
-    <a href="#nosotros">Nosotros</a>
+    <a href="/projects">Proyectos</a>
+    <a href="/about">Nosotros</a>
+    <a href="/faq">FAQs</a>
+    <a href="/process">Proceso</a>
   </div>
 </div>
 
 <script>
+
   const navbar = document.querySelector(".navbar");
   const menuButton = document.querySelector(".menu-button");
   const menu = document.querySelector(".menu");
   const navLinks = document.querySelector(".nav-links");
+  let currentPath  = window.location.pathname;
+
+  if(!(currentPath === "/")){
+      navbar?.classList.add("scrolled");
+  }
 
   window.addEventListener("scroll", () => {
-    if (window.scrollY > 1) {
+    if (window.scrollY > 1 ) {
       navbar?.classList.add("scrolled");
     } else {
       navbar?.classList.remove("scrolled");
