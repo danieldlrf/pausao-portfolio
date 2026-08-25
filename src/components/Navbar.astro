@@ -1,18 +1,21 @@
+---
+const isHome = Astro.url.pathname === "/";
+---
+
 <nav class="navbar">
   <a class="logo" href="/#hero">
     <img src="/logo/logoWeb.png" alt="Logo PAUSAO" />
   </a>
-  <div class="slogan">
-    <p>TU NEGOCIO</p>
-    <p>SIN CORRER</p>
-  </div>
-
-  <div class="nav-links">
-    <a href="/#projects">Trabajos</a>
-    <a href="/#about">Nosotros</a>
-    <a href="/#contact">Hablemos</a>
-  </div>
-
+  
+  {isHome && (
+    <div class="nav-links">
+      <a  href="/#packs">Paquetes</a>
+      <a  href="/#about">Nosotros</a>
+      <a  href="/#proyects">Proyectos</a>
+      
+    </div>
+  )}
+  <a href="/#contact">Hablemos</a>
   <button class="menu-button" aria-label="Abrir menú" aria-expanded="false">
     <span></span>
     <span></span>
@@ -22,29 +25,22 @@
 
 <div class="menu">
   <div class="menu-links">
-    <a href="/services#informatic">Informática</a>
-    <a href="/services#marketing">Marketing</a>
+    <a href="/services">Servicios</a>
     <a href="/projects">Proyectos</a>
     <a href="/about">Nosotros</a>
+    <a href="/proces">Proceso</a>
     <a href="/faq">FAQs</a>
-    <a href="/process">Proceso</a>
   </div>
 </div>
 
 <script>
-
   const navbar = document.querySelector(".navbar");
   const menuButton = document.querySelector(".menu-button");
   const menu = document.querySelector(".menu");
-  const navLinks = document.querySelector(".nav-links");
-  let currentPath  = window.location.pathname;
-
-  if(!(currentPath === "/")){
-      navbar?.classList.add("scrolled");
-  }
+  const navLinks = document.querySelector<HTMLElement>(".nav-links");
 
   window.addEventListener("scroll", () => {
-    if (window.scrollY > 1 ) {
+    if (window.scrollY > 1) {
       navbar?.classList.add("scrolled");
     } else {
       navbar?.classList.remove("scrolled");
@@ -55,13 +51,11 @@
     const isOpen = menu?.classList.toggle("open");
 
     menuButton.classList.toggle("open");
-
     menuButton.setAttribute("aria-expanded", isOpen ? "true" : "false");
 
-    if (isOpen) {
-      navLinks.style.display = "none";
-    } else {
-      navLinks.style.display = "flex"; // Usa "block" si no usas flexbox
+    if (navLinks) {
+      navLinks.style.display = isOpen ? "none" : "flex";
     }
+    document.body.classList.toggle("no-scroll", isOpen);
   });
 </script>
