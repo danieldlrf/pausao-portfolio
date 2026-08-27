@@ -37,7 +37,6 @@ const isHome = Astro.url.pathname === "/";
   const navbar = document.querySelector(".navbar");
   const menuButton = document.querySelector(".menu-button");
   const menu = document.querySelector(".menu");
-  const navLinks = document.querySelector<HTMLElement>(".nav-links");
 
   window.addEventListener("scroll", () => {
     if (window.scrollY > 1) {
@@ -53,9 +52,7 @@ const isHome = Astro.url.pathname === "/";
     menuButton.classList.toggle("open");
     menuButton.setAttribute("aria-expanded", isOpen ? "true" : "false");
 
-    if (navLinks) {
-      navLinks.style.display = isOpen ? "none" : "flex";
-    }
+    navbar?.classList.toggle("menu-open", isOpen);
     document.body.classList.toggle("no-scroll", isOpen);
-  });
+});
 </script>
