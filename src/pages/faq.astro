@@ -1,17 +1,109 @@
 ---
-import Layout from "../layouts/Layout.astro"
+import Layout from "../layouts/Layout.astro";
 ---
-<Layout>
 
-faq
+<Layout title="Preguntas frecuentes">
+  <section class="legalPage">
+    <p class="subtitles">Ayuda</p>
+    <h1 class="legalTitle">Preguntas frecuentes</h1>
 
-  <details name="faq-group">
-    <summary>Pregunta 1</summary>
-    <p>Respuesta 1</p>
-  </details>
-  <details name="faq-group">
-    <summary>Pregunta 2</summary>
-    <p>Respuesta 2</p>
-  </details>
+    <div class="faqList">
+      <details class="faqItem" name="faq-group">
+        <summary class="faqQuestion"
+          >¿Trabajáis solo en Sevilla o también en remoto?</summary
+        >
+        <p class="faqAnswer">
+          Trabajamos de forma presencial con clientes de Sevilla y Dos Hermanas,
+          y en remoto con cualquier negocio, esté donde esté.
+        </p>
+      </details>
 
+      <details class="faqItem" name="faq-group">
+        <summary class="faqQuestion"
+          >¿Puedo contratar solo un servicio suelto, sin coger un paquete
+          completo?</summary
+        >
+        <p class="faqAnswer">
+          Sí. Los paquetes están pensados para quienes quieren la solución
+          completa (branding + web + sistemas), pero también puedes elegir
+          servicios individuales según lo que necesites. Usa el botón
+          "Personaliza tu paquete" en la página de Servicios para marcar
+          exactamente lo que te interesa y enviárnoslo.
+        </p>
+      </details>
+
+      <details class="faqItem" name="faq-group">
+        <summary class="faqQuestion">¿Cómo funciona el pago?</summary>
+        <p class="faqAnswer">
+          Para proyectos de hasta 3.000€, dividimos el pago en dos partes: 50%
+          al inicio y 50% a la entrega. Para proyectos de más de 3.000€,
+          repartimos el pago en tres partes a lo largo del proyecto.
+        </p>
+      </details>
+
+      <details class="faqItem" name="faq-group">
+        <summary class="faqQuestion"
+          >Si cancelo el proyecto, ¿me devolvéis el dinero ya pagado?</summary
+        >
+        <p class="faqAnswer">
+          El dinero ya abonado no se devuelve en caso de cancelación, ya que
+          cubre el trabajo y tiempo ya dedicados al proyecto desde su inicio.
+        </p>
+      </details>
+
+      <details class="faqItem" name="faq-group">
+        <summary class="faqQuestion"
+          >¿Cuántos cambios o revisiones incluye el proyecto?</summary
+        >
+        <p class="faqAnswer">
+          Cada proyecto incluye 2 rondas de cambios sin coste adicional sobre el
+          listado de entregables que definimos juntos al inicio. Cambios fuera
+          de ese listado se valoran aparte.
+        </p>
+      </details>
+
+      <details class="faqItem" name="faq-group">
+        <summary class="faqQuestion"
+          >¿Qué pasa después de la entrega? ¿Dais soporte?</summary
+        >
+        <p class="faqAnswer">
+          Sí, seguimos disponibles. El soporte tras la entrega se factura por
+          incidencia (mínimo una hora), con un tiempo de respuesta de entre 48 y
+          72 horas.
+        </p>
+      </details>
+
+      <details class="faqItem" name="faq-group">
+        <summary class="faqQuestion"
+          >No tengo identidad de marca todavía, ¿puedo pedir solo la web o el
+          sistema?</summary
+        >
+        <p class="faqAnswer">
+          Sí, aunque nuestra recomendación es siempre partir de una identidad de
+          marca sólida, porque es la base sobre la que construimos la web y los
+          sistemas con criterio consistente. Si ya tienes marca definida,
+          trabajamos directamente sobre ella.
+        </p>
+      </details>
+
+      <details class="faqItem" name="faq-group">
+        <summary class="faqQuestion">¿Qué tecnologías usáis?</summary>
+        <p class="faqAnswer">
+          Para sistemas de gestión empresarial usamos Odoo (ERP/CRM),
+          automatizamos procesos con n8n para flujos simples y Bonita para
+          procesos más complejos o multi-departamento, y desarrollamos webs a
+          medida según el proyecto.
+        </p>
+      </details>
+
+      <details class="faqItem" name="faq-group">
+        <summary class="faqQuestion">¿Emitís factura?</summary>
+        <p class="faqAnswer">
+          Formalizaremos nuestra situación fiscal según lo requiera cada
+          proyecto. Si necesitas factura, dínoslo al contactarnos y te
+          confirmamos cómo lo gestionamos en tu caso concreto.
+        </p>
+      </details>
+    </div>
+  </section>
 </Layout>

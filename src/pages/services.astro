@@ -1,45 +1,500 @@
 ---
-import Layout from "../layouts/Layout.astro"
+import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout>
-<div>
-  <h1>NUESTROS SERVICIOS</h1>
-</div>
-<div>
-  <h3>Marketing</h3>
-</div>
-<div>
-  <h3>Informatica</h3>
-  <div>
-    <h5>1. Paginas web</h5>
-    <div>Diseno y desarrollo de tiendas online</div>
-    <div>SEO tecnico basico</div>
-    <div>Migracion de webs antiguas a algo moderno</div>
-  </div>
-  <div>
-    <h5>2. Sistema Odoo (ERP/CRM)</h5>
-    <div>Instalacion y configuracion inicial</div>
-    <div>Modulos custom (se paga extra, fuera del paquete base)</div>
-    <div>Formacion al cliente para usar el sistema</div>
-  </div>
-  <div>
-    <h5>3. Automatizacion</h5>
-    <div>n8n para flujos simples (sincronizacion de pedidos, alertas, recordatorios, informes automaticos)</div>
-    <div>Bonita para procesos mas complejos/multi-departamento (segun contexto del cliente)</div>
-  </div>
-  <div>
-    <h5>4. Infraestructura y soporte tecnico</h5>
-    <div>Gestion de dominio y hosting</div>
-    <div>Copias de seguridad automatizadas</div>
-    <div>Certificados SSL y seguridad basica</div>
-    <div>Soporte por incidencia</div>
-    <div>Migracion de correo corporativo (Gmail Workspace, Outlook)</div>
-  </div>
-  <div>
-    <h5>5. Auditoria digital inicial</h5>
-    <div>Analisis de que tiene el negocio ahora y que le falta</div>
-    <div>Precio bajo y entrega rapida, pensado como puerta de entrada</div>
-  </div>
-</div>    
+<Layout title="Servicios">
+  <section class="servicesHero">
+    <p class="subtitles">Servicios</p>
+    <h1 class="servicesTitle">Nuestros servicios</h1>
+  </section>
+
+  <section class="servicesPacks">
+    <div class="cardContainer cardContainerWrap">
+      <div class="card">
+        <div class="container">
+          <p>MARKETING</p>
+          <div class="textodistinto"><h4><b>Paquete 1</b></h4></div>
+          <p>Descripción breve del paquete.</p>
+          <div class="textodistinto"><h4><b>DESDE 000€</b></h4></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="container">
+          <p>MARKETING</p>
+          <div class="textodistinto"><h4><b>Paquete 2</b></h4></div>
+          <p>Descripción breve del paquete.</p>
+          <div class="textodistinto"><h4><b>DESDE 000€</b></h4></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="container">
+          <p>MARKETING</p>
+          <div class="textodistinto"><h4><b>Paquete 3</b></h4></div>
+          <p>Descripción breve del paquete.</p>
+          <div class="textodistinto"><h4><b>DESDE 000€</b></h4></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="container">
+          <p>INFORMÁTICA</p>
+          <div class="textodistinto"><h4><b>Arranque Digital</b></h4></div>
+          <p>Descripción breve del paquete.</p>
+          <div class="textodistinto"><h4><b>DESDE 1.200€</b></h4></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="container">
+          <p>INFORMÁTICA</p>
+          <div class="textodistinto">
+            <h4><b>Transformación Digital</b></h4>
+          </div>
+          <p>Descripción breve del paquete.</p>
+          <div class="textodistinto"><h4><b>DESDE 2.500€</b></h4></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="container">
+          <p>INFORMÁTICA</p>
+          <div class="textodistinto"><h4><b>Todo Incluido</b></h4></div>
+          <p>Descripción breve del paquete.</p>
+          <div class="textodistinto"><h4><b>DESDE 4.000€</b></h4></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="customPackToggle">
+    <button type="button" class="btn btn-oscuro" id="togglePackForm">
+      Personaliza tu paquete
+    </button>
+  </section>
+
+  <section class="servicesList">
+    <div class="serviceColumn">
+      <h2 class="serviceColTitle">Marketing</h2>
+
+      <div class="serviceGroup">
+        <h3 class="serviceGroupTitle">1. Branding e identidad</h3>
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
+              type="checkbox"
+              class="serviceCheck"
+              name="services"
+              value="Naming y estrategia de marca"
+              form="custom-pack-form"
+            />
+            <span>Naming y estrategia de marca</span>
+          </span>
+          <span class="servicePrice">Desde 000€</span>
+        </label>
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
+              type="checkbox"
+              class="serviceCheck"
+              name="services"
+              value="Identidad visual completa"
+              form="custom-pack-form"
+            />
+            <span>Identidad visual completa</span>
+          </span>
+          <span class="servicePrice">Desde 000€</span>
+        </label>
+      </div>
+
+      <div class="serviceGroup">
+        <h3 class="serviceGroupTitle">2. Gestión de redes sociales</h3>
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
+              type="checkbox"
+              class="serviceCheck"
+              name="services"
+              value="Plan de contenido mensual"
+              form="custom-pack-form"
+            />
+            <span>Plan de contenido mensual</span>
+          </span>
+          <span class="servicePrice">Desde 000€</span>
+        </label>
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
+              type="checkbox"
+              class="serviceCheck"
+              name="services"
+              value="Diseño de piezas gráficas"
+              form="custom-pack-form"
+            />
+            <span>Diseño de piezas gráficas</span>
+          </span>
+          <span class="servicePrice">Desde 000€</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="serviceDivider" aria-hidden="true"></div>
+
+    <div class="serviceColumn">
+      <h2 class="serviceColTitle">Informática</h2>
+
+      <div class="serviceGroup">
+        <h3 class="serviceGroupTitle">1. Páginas web</h3>
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
+              type="checkbox"
+              class="serviceCheck"
+              name="services"
+              value="Diseño y desarrollo de tiendas online"
+              form="custom-pack-form"
+            />
+            <span>Diseño y desarrollo de tiendas online</span>
+          </span>
+          <span class="servicePrice">Desde 000€</span>
+        </label>
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
+              type="checkbox"
+              class="serviceCheck"
+              name="services"
+              value="SEO técnico básico"
+              form="custom-pack-form"
+            />
+            <span>SEO técnico básico</span>
+          </span>
+          <span class="servicePrice">Desde 000€</span>
+        </label>
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
+              type="checkbox"
+              class="serviceCheck"
+              name="services"
+              value="Migración de webs antiguas a algo moderno"
+              form="custom-pack-form"
+            />
+            <span>Migración de webs antiguas a algo moderno</span>
+          </span>
+          <span class="servicePrice">Desde 000€</span>
+        </label>
+      </div>
+
+      <div class="serviceGroup">
+        <h3 class="serviceGroupTitle">2. Sistema Odoo (ERP/CRM)</h3>
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
+              type="checkbox"
+              class="serviceCheck"
+              name="services"
+              value="Instalación y configuración inicial Odoo"
+              form="custom-pack-form"
+            />
+            <span>Instalación y configuración inicial</span>
+          </span>
+          <span class="servicePrice">Desde 000€</span>
+        </label>
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
+              type="checkbox"
+              class="serviceCheck"
+              name="services"
+              value="Módulos custom Odoo"
+              form="custom-pack-form"
+            />
+            <span>Módulos custom</span>
+          </span>
+          <span class="servicePrice">Extra</span>
+        </label>
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
+              type="checkbox"
+              class="serviceCheck"
+              name="services"
+              value="Formación del sistema Odoo"
+              form="custom-pack-form"
+            />
+            <span>Formación al cliente para usar el sistema</span>
+          </span>
+          <span class="servicePrice">Desde 000€</span>
+        </label>
+      </div>
+
+      <div class="serviceGroup">
+        <h3 class="serviceGroupTitle">3. Automatización</h3>
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
+              type="checkbox"
+              class="serviceCheck"
+              name="services"
+              value="Automatización con n8n"
+              form="custom-pack-form"
+            />
+            <span>n8n para flujos simples</span>
+          </span>
+          <span class="servicePrice">Desde 000€</span>
+        </label>
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
+              type="checkbox"
+              class="serviceCheck"
+              name="services"
+              value="Procesos con Bonita"
+              form="custom-pack-form"
+            />
+            <span>Bonita para procesos complejos/multi-departamento</span>
+          </span>
+          <span class="servicePrice">Desde 000€</span>
+        </label>
+      </div>
+
+      <div class="serviceGroup">
+        <h3 class="serviceGroupTitle">4. Infraestructura y soporte técnico</h3>
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
+              type="checkbox"
+              class="serviceCheck"
+              name="services"
+              value="Gestión de dominio y hosting"
+              form="custom-pack-form"
+            />
+            <span>Gestión de dominio y hosting</span>
+          </span>
+          <span class="servicePrice">Desde 000€</span>
+        </label>
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
+              type="checkbox"
+              class="serviceCheck"
+              name="services"
+              value="Copias de seguridad automatizadas"
+              form="custom-pack-form"
+            />
+            <span>Copias de seguridad automatizadas</span>
+          </span>
+          <span class="servicePrice">Desde 000€</span>
+        </label>
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
+              type="checkbox"
+              class="serviceCheck"
+              name="services"
+              value="Certificados SSL y seguridad básica"
+              form="custom-pack-form"
+            />
+            <span>Certificados SSL y seguridad básica</span>
+          </span>
+          <span class="servicePrice">Desde 000€</span>
+        </label>
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
+              type="checkbox"
+              class="serviceCheck"
+              name="services"
+              value="Soporte por incidencia"
+              form="custom-pack-form"
+            />
+            <span>Soporte por incidencia</span>
+          </span>
+          <span class="servicePrice">Desde 000€ / hora</span>
+        </label>
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
+              type="checkbox"
+              class="serviceCheck"
+              name="services"
+              value="Migración de correo corporativo"
+              form="custom-pack-form"
+            />
+            <span
+              >Migración de correo corporativo (Gmail Workspace, Outlook)</span
+            >
+          </span>
+          <span class="servicePrice">Desde 000€</span>
+        </label>
+      </div>
+
+      <div class="serviceGroup">
+        <h3 class="serviceGroupTitle">5. Auditoría digital inicial</h3>
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
+              type="checkbox"
+              class="serviceCheck"
+              name="services"
+              value="Auditoría digital inicial"
+              form="custom-pack-form"
+            />
+            <span>Análisis de qué tiene el negocio ahora y qué le falta</span>
+          </span>
+          <span class="servicePrice">Desde 000€</span>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <section class="customPack">
+    <form
+      id="custom-pack-form"
+      class="contactForm customPackForm"
+      action="https://formspree.io/f/xwlerjdb"
+      method="POST"
+      hidden
+    >
+      <label class="field">
+        Nombre
+        <input type="text" name="name" required />
+      </label>
+      <label class="field">
+        Empresa
+        <input type="text" name="business" required />
+      </label>
+      <label class="field">
+        Correo
+        <input type="email" name="email" required />
+      </label>
+      <label class="field">
+        Teléfono
+        <input type="tel" name="phone" required />
+      </label>
+      <label class="field fieldFull">
+        Asunto
+        <input
+          type="text"
+          name="matter"
+          value="Paquete personalizado"
+          required
+        />
+      </label>
+      <label class="field fieldFull">
+        Cuéntanos un poco más:
+        <textarea name="comment"></textarea>
+      </label>
+      <label class="fieldCheckbox fieldFull">
+        <input type="checkbox" name="privacy" id="privacy-pack" required />
+        He leído y acepto la
+        <a target="_blank" rel="noopener" href="/politica-privacidad"
+          >Política de Privacidad</a
+        >
+      </label>
+      <div class="customPackActions fieldFull">
+        <button type="submit" class="btn btn-oscuro">
+          <span class="btnText">Enviar selección</span>
+          <span class="spinner" hidden></span>
+        </button>
+        <button type="button" class="btn btn-linea" id="cancelPackForm"
+          >Cancelar</button
+        >
+      </div>
+    </form>
+
+    <p id="custom-pack-message" class="formMessage" aria-live="polite"></p>
+  </section>
+
+  <section class="notSure">
+    <p class="notSureTitle">¿No sabes muy bien qué necesitas?</p>
+    <p class="notSureText">Escríbenos y te ayudamos a verlo juntos.</p>
+    <div class="notSureActions">
+      <a class="btn btn-oscuro" href="/#contact">Ir a contacto</a>
+      <a class="btn btn-linea" href="tel:+34679681792">+34 679 681 792</a>
+    </div>
+  </section>
+
+  <section class="policies">
+    <p class="subtitles">Condiciones</p>
+    <h2 class="policiesTitle">Formas de pago y cancelaciones</h2>
+
+    <div class="policyGrid">
+      <div class="policyBlock">
+        <h3 class="policyHeading">Formas de pago</h3>
+        <ul class="legalList">
+          <li>Hasta 3.000€: pago 50% al inicio / 50% a la entrega</li>
+          <li>Más de 3.000€: pago en 3 partes</li>
+        </ul>
+      </div>
+
+      <div class="policyBlock">
+        <h3 class="policyHeading">Cancelaciones</h3>
+        <ul class="legalList">
+          <li>Se define un listado de entregables antes de empezar</li>
+          <li>Incluye 2 rondas de cambios sin coste adicional</li>
+          <li>Cambios dentro de ese listado: sin cargo extra</li>
+          <li>El dinero ya pagado no se devuelve en caso de cancelación</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const toggleBtn = document.querySelector("#togglePackForm");
+    const cancelBtn = document.querySelector("#cancelPackForm");
+    const form = document.querySelector("#custom-pack-form") as HTMLFormElement;
+    const message = document.querySelector("#custom-pack-message");
+    const servicesList = document.querySelector(".servicesList");
+    const submitBtn = form?.querySelector(
+      "button[type=submit]",
+    ) as HTMLButtonElement;
+    const btnText = submitBtn?.querySelector(".btnText") as HTMLElement;
+    const spinner = submitBtn?.querySelector(".spinner") as HTMLElement;
+
+    toggleBtn?.addEventListener("click", () => {
+      form.hidden = false;
+      toggleBtn.hidden = true;
+      servicesList?.classList.add("customizing");
+    });
+
+    cancelBtn?.addEventListener("click", () => {
+      form.reset();
+      form.hidden = true;
+      toggleBtn.hidden = false;
+      message!.textContent = "";
+      servicesList?.classList.remove("customizing");
+    });
+
+    form?.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(form);
+
+      submitBtn.disabled = true;
+      btnText.hidden = true;
+      spinner.hidden = false;
+
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          body: formData,
+          headers: { Accept: "application/json" },
+        });
+
+        if (response.ok) {
+          message!.textContent = "Mensaje recibido :)";
+          form.reset();
+          form.hidden = true;
+          toggleBtn!.hidden = false;
+          servicesList?.classList.remove("customizing");
+        } else {
+          message!.textContent = "Ha ocurrido un problema. Inténtalo de nuevo.";
+        }
+      } catch (error) {
+        message!.textContent = "No hemos podido enviar el mensaje.";
+      } finally {
+        submitBtn.disabled = false;
+        btnText.hidden = false;
+        spinner.hidden = true;
+      }
+    });
+  </script>
 </Layout>
