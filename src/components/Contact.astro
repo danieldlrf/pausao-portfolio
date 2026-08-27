@@ -1,11 +1,18 @@
 <script>
   const form = document.querySelector("#contact-form");
   const message = document.querySelector("#form-message");
+  const submitBtn = document.querySelector("#submit-btn");
+  const btnText = submitBtn?.querySelector(".btnText");
+  const spinner = submitBtn?.querySelector(".spinner");
 
   form?.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const formData = new FormData(form);
+
+    submitBtn.disabled = true;
+    btnText.hidden = true;
+    spinner.hidden = false;
 
     try {
       const response = await fetch(form.action, {
@@ -24,72 +31,66 @@
       }
     } catch (error) {
       message!.textContent = "No hemos podido enviar el mensaje.";
+    } finally {
+      submitBtn.disabled = false;
+      btnText.hidden = false;
+      spinner.hidden = true;
     }
   });
 </script>
 
 <section id="contact">
-  <p>¿hablamos de tu proyecto?</p>
-  <p>Abrimos en noviembre de 2026 — escríbenos y sé de los primeros en trabajar con nosotros.</p>
-  <section id="form">
-    <form
-      id="contact-form"
-      action="https://formspree.io/f/xwlerjdb"
-      method="POST"
-    >
-      <p>
-        <label>
-          Nombre
-          <input type="text" name="name" required />
-        </label>
-      </p>
+  <p class="contactTitle">¿hablamos de tu proyecto?</p>
+  <p class="contactText">
+    Abrimos en noviembre de 2026 — escríbenos y sé de los primeros en trabajar
+    con nosotros.
+  </p>
+  <form
+    id="contact-form"
+    class="contactForm"
+    action="https://formspree.io/f/xwlerjdb"
+    method="POST"
+  >
+    <label class="field">
+      Nombre
+      <input type="text" name="name" required />
+    </label>
 
-      <p>
-        <label>
-          Empresa
-          <input type="text" name="business" required />
-        </label>
-      </p>
+    <label class="field">
+      Empresa
+      <input type="text" name="business" required />
+    </label>
 
-      <p>
-        <label>
-          Correo
-          <input type="email" name="email" required />
-        </label>
-      </p>
+    <label class="field">
+      Correo
+      <input type="email" name="email" required />
+    </label>
 
-      <p>
-        <label>
-          Telefono
-          <input type="tel" name="phone" required />
-        </label>
-      </p>
+    <label class="field">
+      Telefono
+      <input type="tel" name="phone" required />
+    </label>
 
-      <p>
-        <label>
-          Asunto
-          <input type="text" name="matter" required />
-        </label>
-      </p>
+    <label class="field fieldFull">
+      Asunto
+      <input type="text" name="matter" required />
+    </label>
 
-      <p>
-        <label>
-          Cuentanos un poco más:
-          <textarea name="comment"></textarea>
-        </label>
-      </p>
+    <label class="field fieldFull">
+      Cuentanos un poco más:
+      <textarea name="comment"></textarea>
+    </label>
 
-      <p>
-        <label>
-           <input type="checkbox" name="privacy" id="privay" required>
-        </label> He leído y acepto la <a target="_blank" rel="noopener" href="../privacy">Politica de Privacidad</a>
-      </p>
-      <p>
-        <label>
-          <input type="submit" />
-        </label>
-      </p>
-    </form>
-    <p id="form-message" aria-live="polite"></p>
-  </section>
+    <label class="fieldCheckbox fieldFull">
+      <input type="checkbox" name="privacy" id="privacy" required />
+      He leído y acepto la
+      <a target="_blank" rel="noopener" href="../privacy">Política de Privacidad</a>
+    </label>
+
+    <button type="submit" class="btn btn-oscuro fieldFull" id="submit-btn">
+  <span class="btnText">Enviar</span>
+  <span class="spinner" hidden></span>
+</button>
+  </form>
+  <p id="form-message" class="formMessage" aria-live="polite"></p>
 </section>
