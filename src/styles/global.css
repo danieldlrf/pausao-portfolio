@@ -602,6 +602,10 @@ body.no-scroll {
     font-family: var(--font-display);
     color: var(--color-text);
     font-size: var(--text-xl);
+    text-decoration-line: underline;
+    text-decoration-color: var(--color-brand);
+    text-underline-offset: 10px;
+    text-decoration-thickness: 3px;
 }
 
 .list-services1 {
