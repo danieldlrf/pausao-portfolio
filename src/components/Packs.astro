@@ -1,4 +1,27 @@
+---
+// --- CONTROL DE DESCUENTOS (mismo mecanismo que en Servicios) ---
+const DISCOUNT = 40;
+const PACK_EXTRA_DISCOUNT = 10;
+
+function priceAfter(base: number, discount: number, extraPercent = 0) {
+  if (discount <= 0) return base;
+  let price = base * (1 - discount / 100);
+  if (extraPercent > 0) price = price * (1 - extraPercent / 100);
+  return Math.round(price);
+}
+---
+
 <section id="packs">
+  {DISCOUNT > 0 && (
+    <div class="launchBadge">
+      <span class="launchBadgeIcon">🔥</span>
+      <span class="launchBadgeText">
+        Oferta de lanzamiento
+        <strong>{DISCOUNT}% OFF</strong>
+      </span>
+    </div>
+  )}
+
   <p class="subtitles">PAQUETES</p>
   <p class="packsSubtitle">Tres formas de empezar</p>
   <div class="cardContainer">
@@ -17,9 +40,19 @@
             <li>Logo + tipografías + paleta </li>
           </ul>
         </div>
-        <div class="textodistinto"><h4><b>DESDE 890€</b></h4></div>
+        <div class="textodistinto">
+          {DISCOUNT > 0 ? (
+            <h4>
+              <span class="priceOld">DESDE 890€</span>{" "}
+              <b class="priceNew">DESDE {priceAfter(890, DISCOUNT, PACK_EXTRA_DISCOUNT)}€</b>
+            </h4>
+          ) : (
+            <h4><b>DESDE 890€</b></h4>
+          )}
+        </div>
       </div>
     </div>
+
     <div class="card">
       <div class="container">
         <p>BRANDING</p>
@@ -35,9 +68,19 @@
             <li>Logo + tipografías + paleta </li>
           </ul>
         </div>
-        <div class="textodistinto"><h4><b>DESDE 890€</b></h4></div>
+        <div class="textodistinto">
+          {DISCOUNT > 0 ? (
+            <h4>
+              <span class="priceOld">DESDE 890€</span>{" "}
+              <b class="priceNew">DESDE {priceAfter(890, DISCOUNT, PACK_EXTRA_DISCOUNT)}€</b>
+            </h4>
+          ) : (
+            <h4><b>DESDE 890€</b></h4>
+          )}
+        </div>
       </div>
     </div>
+
     <div class="card" id="c3">
       <span class="badge">Más elegido</span>
       <div class="container">
@@ -54,8 +97,16 @@
             <li>Logo + tipografías + paleta </li>
           </ul>
         </div>
-        <div class="textodistinto"><h4><b>DESDE 890€</b></h4></div>
-        
+        <div class="textodistinto">
+          {DISCOUNT > 0 ? (
+            <h4>
+              <span class="priceOld">DESDE 890€</span>{" "}
+              <b class="priceNew">DESDE {priceAfter(890, DISCOUNT, PACK_EXTRA_DISCOUNT)}€</b>
+            </h4>
+          ) : (
+            <h4><b>DESDE 890€</b></h4>
+          )}
+        </div>
       </div>
     </div>
   </div>

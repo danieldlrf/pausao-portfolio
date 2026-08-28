@@ -1,0 +1,29 @@
+---
+export interface Props {
+  base: number;
+  discount: number;
+  extra?: number;
+  suffix?: string;
+  prefix?: string;
+}
+
+const { base, discount, extra = 0, suffix = "", prefix = "Desde" } = Astro.props;
+
+function priceAfter(base: number, discount: number, extraPercent = 0) {
+  if (discount <= 0) return base;
+  let price = base * (1 - discount / 100);
+  if (extraPercent > 0) price = price * (1 - extraPercent / 100);
+  return Math.round(price);
+}
+
+const finalPrice = priceAfter(base, discount, extra);
+---
+
+{discount > 0 ? (
+  <span class="servicePrice">
+    <span class="priceOld">{prefix} {base}€{suffix}</span>
+    <span class="priceNew">{prefix} {finalPrice}€{suffix}</span>
+  </span>
+) : (
+  <span class="servicePrice">{prefix} {base}€{suffix}</span>
+)}

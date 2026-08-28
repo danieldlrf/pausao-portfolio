@@ -1,5 +1,18 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import PriceTag from "../components/PriceTag.astro";
+
+// --- CONTROL DE DESCUENTOS ---
+// Pon DISCOUNT a 0 para desactivar todos los descuentos y mostrar precios finales sin tachar.
+const DISCOUNT = 40; // % de descuento general de lanzamiento
+const PACK_EXTRA_DISCOUNT = 10; // % extra SOLO para los 3 packs de Marketing
+
+function priceAfter(base: number, discount: number, extraPercent = 0) {
+  if (discount <= 0) return base;
+  let price = base * (1 - discount / 100);
+  if (extraPercent > 0) price = price * (1 - extraPercent / 100);
+  return Math.round(price);
+}
 ---
 
 <Layout
@@ -7,44 +20,119 @@ import Layout from "../layouts/Layout.astro";
   description="Paquetes y servicios de branding, web y sistemas ERP para pymes en Sevilla."
 >
   <section class="servicesHero">
+    {
+      DISCOUNT > 0 && (
+        <div class="launchBadge">
+          <span class="launchBadgeIcon">🔥</span>
+          <span class="launchBadgeText">
+            Oferta de lanzamiento
+            <strong>{DISCOUNT}% OFF</strong>
+          </span>
+        </div>
+      )
+    }
     <p class="subtitles">Servicios</p>
     <h1 class="servicesTitle">Nuestros servicios</h1>
   </section>
 
   <section class="servicesPacks">
     <div class="cardContainer cardContainerWrap">
+      <!-- MARKETING (con 10% extra) -->
       <div class="card">
         <div class="container">
           <p>MARKETING</p>
           <div class="textodistinto"><h4><b>Paquete 1</b></h4></div>
           <p>Descripción breve del paquete.</p>
-          <div class="textodistinto"><h4><b>DESDE 000€</b></h4></div>
+          <div class="textodistinto">
+            {
+              DISCOUNT > 0 ? (
+                <h4>
+                  <span class="priceOld">DESDE 900€</span>{" "}
+                  <b class="priceNew">
+                    DESDE {priceAfter(900, DISCOUNT, PACK_EXTRA_DISCOUNT)}€
+                  </b>
+                </h4>
+              ) : (
+                <h4>
+                  <b>DESDE 900€</b>
+                </h4>
+              )
+            }
+          </div>
         </div>
       </div>
+
       <div class="card">
         <div class="container">
           <p>MARKETING</p>
           <div class="textodistinto"><h4><b>Paquete 2</b></h4></div>
           <p>Descripción breve del paquete.</p>
-          <div class="textodistinto"><h4><b>DESDE 000€</b></h4></div>
+          <div class="textodistinto">
+            {
+              DISCOUNT > 0 ? (
+                <h4>
+                  <span class="priceOld">DESDE 1.500€</span>{" "}
+                  <b class="priceNew">
+                    DESDE {priceAfter(1500, DISCOUNT, PACK_EXTRA_DISCOUNT)}€
+                  </b>
+                </h4>
+              ) : (
+                <h4>
+                  <b>DESDE 1.500€</b>
+                </h4>
+              )
+            }
+          </div>
         </div>
       </div>
+
       <div class="card">
         <div class="container">
           <p>MARKETING</p>
           <div class="textodistinto"><h4><b>Paquete 3</b></h4></div>
           <p>Descripción breve del paquete.</p>
-          <div class="textodistinto"><h4><b>DESDE 000€</b></h4></div>
+          <div class="textodistinto">
+            {
+              DISCOUNT > 0 ? (
+                <h4>
+                  <span class="priceOld">DESDE 2.200€</span>{" "}
+                  <b class="priceNew">
+                    DESDE {priceAfter(2200, DISCOUNT, PACK_EXTRA_DISCOUNT)}€
+                  </b>
+                </h4>
+              ) : (
+                <h4>
+                  <b>DESDE 2.200€</b>
+                </h4>
+              )
+            }
+          </div>
         </div>
       </div>
+
+      <!-- INFORMÁTICA (solo descuento general) -->
       <div class="card">
         <div class="container">
           <p>INFORMÁTICA</p>
           <div class="textodistinto"><h4><b>Arranque Digital</b></h4></div>
           <p>Descripción breve del paquete.</p>
-          <div class="textodistinto"><h4><b>DESDE 1.200€</b></h4></div>
+          <div class="textodistinto">
+            {
+              DISCOUNT > 0 ? (
+                <h4>
+                  <span class="priceOld">DESDE 1.200€</span>{" "}
+                  <b class="priceNew">DESDE {priceAfter(1200, DISCOUNT)}€</b>
+                </h4>
+              ) : (
+                <h4>
+                  <b>DESDE 1.200€</b>
+                </h4>
+              )
+            }
+          </div>
         </div>
       </div>
+
       <div class="card">
         <div class="container">
           <p>INFORMÁTICA</p>
@@ -52,15 +140,42 @@ import Layout from "../layouts/Layout.astro";
             <h4><b>Transformación Digital</b></h4>
           </div>
           <p>Descripción breve del paquete.</p>
-          <div class="textodistinto"><h4><b>DESDE 2.500€</b></h4></div>
+          <div class="textodistinto">
+            {
+              DISCOUNT > 0 ? (
+                <h4>
+                  <span class="priceOld">DESDE 2.500€</span>{" "}
+                  <b class="priceNew">DESDE {priceAfter(2500, DISCOUNT)}€</b>
+                </h4>
+              ) : (
+                <h4>
+                  <b>DESDE 2.500€</b>
+                </h4>
+              )
+            }
+          </div>
         </div>
       </div>
+
       <div class="card">
         <div class="container">
           <p>INFORMÁTICA</p>
           <div class="textodistinto"><h4><b>Todo Incluido</b></h4></div>
           <p>Descripción breve del paquete.</p>
-          <div class="textodistinto"><h4><b>DESDE 4.000€</b></h4></div>
+          <div class="textodistinto">
+            {
+              DISCOUNT > 0 ? (
+                <h4>
+                  <span class="priceOld">DESDE 4.000€</span>{" "}
+                  <b class="priceNew">DESDE {priceAfter(4000, DISCOUNT)}€</b>
+                </h4>
+              ) : (
+                <h4>
+                  <b>DESDE 4.000€</b>
+                </h4>
+              )
+            }
+          </div>
         </div>
       </div>
     </div>
@@ -76,7 +191,6 @@ import Layout from "../layouts/Layout.astro";
     <div class="serviceColumn">
       <h2 class="serviceColTitle">Marketing</h2>
 
-      <!-- 1. BRANDING E IDENTIDAD -->
       <div class="serviceGroup">
         <h3 class="serviceGroupTitle">1. Branding e identidad</h3>
 
@@ -91,7 +205,7 @@ import Layout from "../layouts/Layout.astro";
             />
             <span>Rebranding</span>
           </span>
-          <span class="servicePrice">Desde 900€</span>
+          <PriceTag base={900} discount={DISCOUNT} />
         </label>
 
         <label class="serviceRow">
@@ -105,7 +219,7 @@ import Layout from "../layouts/Layout.astro";
             />
             <span>Identidad visual</span>
           </span>
-          <span class="servicePrice">Desde 650€</span>
+          <PriceTag base={650} discount={DISCOUNT} />
         </label>
 
         <label class="serviceRow">
@@ -119,7 +233,7 @@ import Layout from "../layouts/Layout.astro";
             />
             <span>Diseño de logotipo</span>
           </span>
-          <span class="servicePrice">Desde 300€</span>
+          <PriceTag base={300} discount={DISCOUNT} />
         </label>
 
         <label class="serviceRow">
@@ -133,7 +247,7 @@ import Layout from "../layouts/Layout.astro";
             />
             <span>Rediseño de logotipo</span>
           </span>
-          <span class="servicePrice">Desde 250€</span>
+          <PriceTag base={250} discount={DISCOUNT} />
         </label>
 
         <label class="serviceRow">
@@ -147,7 +261,7 @@ import Layout from "../layouts/Layout.astro";
             />
             <span>Paleta de colores</span>
           </span>
-          <span class="servicePrice">Desde 80€</span>
+          <PriceTag base={80} discount={DISCOUNT} />
         </label>
 
         <label class="serviceRow">
@@ -161,7 +275,7 @@ import Layout from "../layouts/Layout.astro";
             />
             <span>Tipografías</span>
           </span>
-          <span class="servicePrice">Desde 60€</span>
+          <PriceTag base={60} discount={DISCOUNT} />
         </label>
 
         <label class="serviceRow">
@@ -175,7 +289,7 @@ import Layout from "../layouts/Layout.astro";
             />
             <span>Recursos gráficos</span>
           </span>
-          <span class="servicePrice">Desde 120€</span>
+          <PriceTag base={120} discount={DISCOUNT} />
         </label>
 
         <label class="serviceRow">
@@ -189,7 +303,7 @@ import Layout from "../layouts/Layout.astro";
             />
             <span>Aplicaciones de marca</span>
           </span>
-          <span class="servicePrice">Desde 100€</span>
+          <PriceTag base={100} discount={DISCOUNT} />
         </label>
 
         <label class="serviceRow">
@@ -203,11 +317,10 @@ import Layout from "../layouts/Layout.astro";
             />
             <span>Mini guía de identidad visual</span>
           </span>
-          <span class="servicePrice">Desde 150€</span>
+          <PriceTag base={150} discount={DISCOUNT} />
         </label>
       </div>
 
-      <!-- 2. GESTIÓN DE REDES SOCIALES -->
       <div class="serviceGroup">
         <h3 class="serviceGroupTitle">2. Gestión de redes sociales</h3>
 
@@ -222,7 +335,7 @@ import Layout from "../layouts/Layout.astro";
             />
             <span>Optimización de perfil</span>
           </span>
-          <span class="servicePrice">Desde 75€</span>
+          <PriceTag base={75} discount={DISCOUNT} />
         </label>
 
         <label class="serviceRow">
@@ -236,7 +349,7 @@ import Layout from "../layouts/Layout.astro";
             />
             <span>Kit de contenido para redes</span>
           </span>
-          <span class="servicePrice">Desde 250€</span>
+          <PriceTag base={250} discount={DISCOUNT} />
         </label>
 
         <label class="serviceRow">
@@ -250,215 +363,244 @@ import Layout from "../layouts/Layout.astro";
             />
             <span>Adaptación de identidad visual a redes</span>
           </span>
-          <span class="servicePrice">Desde 100€</span>
+          <PriceTag base={100} discount={DISCOUNT} />
         </label>
       </div>
 
-      <!-- 3. DISEÑO GRÁFICO -->
       <div class="serviceGroup">
         <h3 class="serviceGroupTitle">3. Diseño gráfico</h3>
 
-        <label class="serviceRow"
-          ><span class="serviceRowLeft"
-            ><input
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
               type="checkbox"
               class="serviceCheck"
               name="services"
               value="Flyer"
               form="custom-pack-form"
-            /><span>Flyer</span></span
-          ><span class="servicePrice">Desde 50€</span></label
-        >
+            />
+            <span>Flyer</span>
+          </span>
+          <PriceTag base={50} discount={DISCOUNT} />
+        </label>
 
-        <label class="serviceRow"
-          ><span class="serviceRowLeft"
-            ><input
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
               type="checkbox"
               class="serviceCheck"
               name="services"
               value="Cartel"
               form="custom-pack-form"
-            /><span>Cartel</span></span
-          ><span class="servicePrice">Desde 60€</span></label
-        >
+            />
+            <span>Cartel</span>
+          </span>
+          <PriceTag base={60} discount={DISCOUNT} />
+        </label>
 
-        <label class="serviceRow"
-          ><span class="serviceRowLeft"
-            ><input
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
               type="checkbox"
               class="serviceCheck"
               name="services"
               value="Menú"
               form="custom-pack-form"
-            /><span>Menú</span></span
-          ><span class="servicePrice">Desde 100€</span></label
-        >
+            />
+            <span>Menú</span>
+          </span>
+          <PriceTag base={100} discount={DISCOUNT} />
+        </label>
 
-        <label class="serviceRow"
-          ><span class="serviceRowLeft"
-            ><input
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
               type="checkbox"
               class="serviceCheck"
               name="services"
               value="Tarjeta"
               form="custom-pack-form"
-            /><span>Tarjeta</span></span
-          ><span class="servicePrice">Desde 40€</span></label
-        >
+            />
+            <span>Tarjeta</span>
+          </span>
+          <PriceTag base={40} discount={DISCOUNT} />
+        </label>
 
-        <label class="serviceRow"
-          ><span class="serviceRowLeft"
-            ><input
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
               type="checkbox"
               class="serviceCheck"
               name="services"
               value="Presentación"
               form="custom-pack-form"
-            /><span>Presentación</span></span
-          ><span class="servicePrice">Desde 150€</span></label
-        >
+            />
+            <span>Presentación</span>
+          </span>
+          <PriceTag base={150} discount={DISCOUNT} />
+        </label>
 
-        <label class="serviceRow"
-          ><span class="serviceRowLeft"
-            ><input
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
               type="checkbox"
               class="serviceCheck"
               name="services"
               value="Banner"
               form="custom-pack-form"
-            /><span>Banner</span></span
-          ><span class="servicePrice">Desde 40€</span></label
-        >
+            />
+            <span>Banner</span>
+          </span>
+          <PriceTag base={40} discount={DISCOUNT} />
+        </label>
 
-        <label class="serviceRow"
-          ><span class="serviceRowLeft"
-            ><input
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
               type="checkbox"
               class="serviceCheck"
               name="services"
               value="Material promocional"
               form="custom-pack-form"
-            /><span>Material promocional</span></span
-          ><span class="servicePrice">Desde 50€</span></label
-        >
+            />
+            <span>Material promocional</span>
+          </span>
+          <PriceTag base={50} discount={DISCOUNT} />
+        </label>
 
-        <label class="serviceRow"
-          ><span class="serviceRowLeft"
-            ><input
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
               type="checkbox"
               class="serviceCheck"
               name="services"
               value="Pieza gráfica para campaña"
               form="custom-pack-form"
-            /><span>Pieza gráfica para campaña</span></span
-          ><span class="servicePrice">Desde 80€</span></label
-        >
+            />
+            <span>Pieza gráfica para campaña</span>
+          </span>
+          <PriceTag base={80} discount={DISCOUNT} />
+        </label>
 
-        <label class="serviceRow"
-          ><span class="serviceRowLeft"
-            ><input
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
               type="checkbox"
               class="serviceCheck"
               name="services"
               value="Mockup"
               form="custom-pack-form"
-            /><span>Mockup</span></span
-          ><span class="servicePrice">Desde 30€</span></label
-        >
+            />
+            <span>Mockup</span>
+          </span>
+          <PriceTag base={30} discount={DISCOUNT} />
+        </label>
       </div>
 
-      <!-- 4. CONCEPTO CREATIVO -->
       <div class="serviceGroup">
         <h3 class="serviceGroupTitle">4. Concepto creativo</h3>
 
-        <label class="serviceRow"
-          ><span class="serviceRowLeft"
-            ><input
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
               type="checkbox"
               class="serviceCheck"
               name="services"
               value="Moodboard"
               form="custom-pack-form"
-            /><span>Moodboard</span></span
-          ><span class="servicePrice">Desde 75€</span></label
-        >
+            />
+            <span>Moodboard</span>
+          </span>
+          <PriceTag base={75} discount={DISCOUNT} />
+        </label>
 
-        <label class="serviceRow"
-          ><span class="serviceRowLeft"
-            ><input
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
               type="checkbox"
               class="serviceCheck"
               name="services"
               value="Concepto visual"
               form="custom-pack-form"
-            /><span>Concepto visual</span></span
-          ><span class="servicePrice">Desde 120€</span></label
-        >
+            />
+            <span>Concepto visual</span>
+          </span>
+          <PriceTag base={120} discount={DISCOUNT} />
+        </label>
 
-        <label class="serviceRow"
-          ><span class="serviceRowLeft"
-            ><input
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
               type="checkbox"
               class="serviceCheck"
               name="services"
               value="Dirección visual de proyecto"
               form="custom-pack-form"
-            /><span>Dirección visual de proyecto</span></span
-          ><span class="servicePrice">Desde 150€</span></label
-        >
+            />
+            <span>Dirección visual de proyecto</span>
+          </span>
+          <PriceTag base={150} discount={DISCOUNT} />
+        </label>
       </div>
 
-      <!-- 5. DISEÑO DIGITAL -->
       <div class="serviceGroup">
         <h3 class="serviceGroupTitle">5. Diseño digital</h3>
 
-        <label class="serviceRow"
-          ><span class="serviceRowLeft"
-            ><input
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
               type="checkbox"
               class="serviceCheck"
               name="services"
               value="Diseño visual de página web"
               form="custom-pack-form"
-            /><span>Diseño visual de página web</span></span
-          ><span class="servicePrice">Desde 500€</span></label
-        >
+            />
+            <span>Diseño visual de página web</span>
+          </span>
+          <PriceTag base={500} discount={DISCOUNT} />
+        </label>
 
-        <label class="serviceRow"
-          ><span class="serviceRowLeft"
-            ><input
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
               type="checkbox"
               class="serviceCheck"
               name="services"
               value="Diseño de landing page"
               form="custom-pack-form"
-            /><span>Diseño de landing page</span></span
-          ><span class="servicePrice">Desde 300€</span></label
-        >
+            />
+            <span>Diseño de landing page</span>
+          </span>
+          <PriceTag base={300} discount={DISCOUNT} />
+        </label>
 
-        <label class="serviceRow"
-          ><span class="serviceRowLeft"
-            ><input
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
               type="checkbox"
               class="serviceCheck"
               name="services"
               value="Elementos gráficos para web"
               form="custom-pack-form"
-            /><span>Elementos gráficos para web</span></span
-          ><span class="servicePrice">Desde 40€</span></label
-        >
+            />
+            <span>Elementos gráficos para web</span>
+          </span>
+          <PriceTag base={40} discount={DISCOUNT} />
+        </label>
 
-        <label class="serviceRow"
-          ><span class="serviceRowLeft"
-            ><input
+        <label class="serviceRow">
+          <span class="serviceRowLeft">
+            <input
               type="checkbox"
               class="serviceCheck"
               name="services"
               value="Banner para web"
               form="custom-pack-form"
-            /><span>Banner para web</span></span
-          ><span class="servicePrice">Desde 40€</span></label
-        >
+            />
+            <span>Banner para web</span>
+          </span>
+          <PriceTag base={40} discount={DISCOUNT} />
+        </label>
       </div>
     </div>
 
@@ -469,32 +611,35 @@ import Layout from "../layouts/Layout.astro";
 
       <div class="serviceGroup">
         <h3 class="serviceGroupTitle">1. Páginas web</h3>
+
         <label class="serviceRow">
           <span class="serviceRowLeft">
             <input
               type="checkbox"
               class="serviceCheck"
               name="services"
-              value="Diseño y desarrollo de tiendas online"
+              value="Diseño de páginas webs"
               form="custom-pack-form"
             />
-            <span>Diseño y desarrollo de paginas webs</span>
+            <span>Diseño de páginas webs</span>
           </span>
-          <span class="servicePrice">Desde 500€</span>
+          <PriceTag base={800} discount={DISCOUNT} />
         </label>
+
         <label class="serviceRow">
           <span class="serviceRowLeft">
             <input
               type="checkbox"
               class="serviceCheck"
               name="services"
-              value="Diseño y desarrollo de tiendas online"
+              value="Diseño de tiendas online"
               form="custom-pack-form"
             />
-            <span>Diseño y desarrollo de tiendas online</span>
+            <span>Diseño de tiendas online</span>
           </span>
-          <span class="servicePrice">Desde 800€</span>
+          <PriceTag base={1500} discount={DISCOUNT} />
         </label>
+
         <label class="serviceRow">
           <span class="serviceRowLeft">
             <input
@@ -506,8 +651,9 @@ import Layout from "../layouts/Layout.astro";
             />
             <span>SEO técnico básico</span>
           </span>
-          <span class="servicePrice">Desde 100€</span>
+          <PriceTag base={250} discount={DISCOUNT} />
         </label>
+
         <label class="serviceRow">
           <span class="serviceRowLeft">
             <input
@@ -519,12 +665,13 @@ import Layout from "../layouts/Layout.astro";
             />
             <span>Migración de webs antiguas a algo moderno</span>
           </span>
-          <span class="servicePrice">Desde 300€</span>
+          <PriceTag base={500} discount={DISCOUNT} />
         </label>
       </div>
 
       <div class="serviceGroup">
         <h3 class="serviceGroupTitle">2. Sistema Odoo (ERP/CRM)</h3>
+
         <label class="serviceRow">
           <span class="serviceRowLeft">
             <input
@@ -536,8 +683,9 @@ import Layout from "../layouts/Layout.astro";
             />
             <span>Instalación y configuración inicial</span>
           </span>
-          <span class="servicePrice">Desde 800€</span>
+          <PriceTag base={1900} discount={DISCOUNT} />
         </label>
+
         <label class="serviceRow">
           <span class="serviceRowLeft">
             <input
@@ -549,8 +697,9 @@ import Layout from "../layouts/Layout.astro";
             />
             <span>Módulos custom</span>
           </span>
-          <span class="servicePrice">Desde 300€</span>
+          <PriceTag base={300} discount={DISCOUNT} />
         </label>
+
         <label class="serviceRow">
           <span class="serviceRowLeft">
             <input
@@ -562,12 +711,13 @@ import Layout from "../layouts/Layout.astro";
             />
             <span>Formación al cliente para usar el sistema</span>
           </span>
-          <span class="servicePrice">Desde 50€ (1º Gratis)</span>
+          <PriceTag base={55} discount={DISCOUNT} suffix="/hora (1ª gratis)" />
         </label>
       </div>
 
       <div class="serviceGroup">
         <h3 class="serviceGroupTitle">3. Automatización</h3>
+
         <label class="serviceRow">
           <span class="serviceRowLeft">
             <input
@@ -579,8 +729,9 @@ import Layout from "../layouts/Layout.astro";
             />
             <span>n8n para flujos simples</span>
           </span>
-          <span class="servicePrice">Desde 100€/flujo</span>
+          <PriceTag base={180} discount={DISCOUNT} suffix="/flujo" />
         </label>
+
         <label class="serviceRow">
           <span class="serviceRowLeft">
             <input
@@ -592,12 +743,17 @@ import Layout from "../layouts/Layout.astro";
             />
             <span>Bonita para procesos complejos/multi-departamento</span>
           </span>
-          <span class="servicePrice">Desde 700€ (presupuesto a medida)</span>
+          <PriceTag
+            base={1200}
+            discount={DISCOUNT}
+            suffix=" (presupuesto a medida)"
+          />
         </label>
       </div>
 
       <div class="serviceGroup">
         <h3 class="serviceGroupTitle">4. Infraestructura y soporte técnico</h3>
+
         <label class="serviceRow">
           <span class="serviceRowLeft">
             <input
@@ -609,8 +765,13 @@ import Layout from "../layouts/Layout.astro";
             />
             <span>Gestión de dominio y hosting</span>
           </span>
-          <span class="servicePrice">50€ setup + 15-20€/mes</span>
+          <PriceTag
+            base={70}
+            discount={DISCOUNT}
+            suffix=" setup + 15-20€/mes"
+          />
         </label>
+
         <label class="serviceRow">
           <span class="serviceRowLeft">
             <input
@@ -620,10 +781,11 @@ import Layout from "../layouts/Layout.astro";
               value="Copias de seguridad automatizadas"
               form="custom-pack-form"
             />
-            <span>Copias de seguridad automatizadas</span>
+            <span>Configuración y copias de seguridad automatizadas</span>
           </span>
-          <span class="servicePrice">Desde 100€</span>
+          <PriceTag base={250} discount={DISCOUNT} suffix="/año" />
         </label>
+
         <label class="serviceRow">
           <span class="serviceRowLeft">
             <input
@@ -633,10 +795,11 @@ import Layout from "../layouts/Layout.astro";
               value="Certificados SSL y seguridad básica"
               form="custom-pack-form"
             />
-            <span>Certificados SSL y seguridad básica</span>
+            <span>Gestión de certificados SSL y seguridad básica</span>
           </span>
-          <span class="servicePrice">Desde 100€</span>
+          <PriceTag base={80} discount={DISCOUNT} suffix="/año" />
         </label>
+
         <label class="serviceRow">
           <span class="serviceRowLeft">
             <input
@@ -648,8 +811,9 @@ import Layout from "../layouts/Layout.astro";
             />
             <span>Soporte por incidencia</span>
           </span>
-          <span class="servicePrice">Desde 30€/hora</span>
+          <PriceTag base={50} discount={DISCOUNT} suffix="/hora" />
         </label>
+
         <label class="serviceRow">
           <span class="serviceRowLeft">
             <input
@@ -663,12 +827,13 @@ import Layout from "../layouts/Layout.astro";
               >Migración de correo corporativo (Gmail Workspace, Outlook)</span
             >
           </span>
-          <span class="servicePrice">Desde 150€</span>
+          <PriceTag base={250} discount={DISCOUNT} />
         </label>
       </div>
 
       <div class="serviceGroup">
         <h3 class="serviceGroupTitle">5. Auditoría digital inicial</h3>
+
         <label class="serviceRow">
           <span class="serviceRowLeft">
             <input
@@ -680,7 +845,7 @@ import Layout from "../layouts/Layout.astro";
             />
             <span>Análisis de qué tiene el negocio ahora y qué le falta</span>
           </span>
-          <span class="servicePrice">Desde 50€</span>
+          <PriceTag base={50} discount={DISCOUNT} />
         </label>
       </div>
     </div>
