@@ -34,6 +34,20 @@ const businessSchema = {
 
 <html lang="es">
   <head>
+
+    <script>
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function(){ dataLayer.push(arguments); };
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97N7L0Z2F0"></script>
+
+<script>
+  gtag("consent", "default", { analytics_storage: "denied" });
+  gtag("js", new Date());
+  gtag("config", "G-97N7L0Z2F0");
+</script>
+
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
@@ -76,20 +90,7 @@ const businessSchema = {
       type="application/ld+json"
       set:html={JSON.stringify(businessSchema)}
     />
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-    </script>
-    <script>
-      gtag("consent", "default", { analytics_storage: "denied" });
-      gtag("js", new Date());
-      gtag("config", "G-97N7L0Z2F0");
-    </script>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-97N7L0Z2F0"
-    ></script>
   </head>
 
   <body>
