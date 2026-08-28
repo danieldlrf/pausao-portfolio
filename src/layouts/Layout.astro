@@ -76,22 +76,15 @@ const businessSchema = {
       type="application/ld+json"
       set:html={JSON.stringify(businessSchema)}
     />
-
-    <!-- Google tag (gtag.js) -->
     <script>
       window.dataLayer = window.dataLayer || [];
-
       function gtag() {
         dataLayer.push(arguments);
       }
-
-      // Consentimiento por defecto: NO ANALYTICS
-      gtag("consent", "default", {
-        analytics_storage: "denied",
-      });
-
+    </script>
+    <script>
+      gtag("consent", "default", { analytics_storage: "denied" });
       gtag("js", new Date());
-
       gtag("config", "G-97N7L0Z2F0");
     </script>
 
