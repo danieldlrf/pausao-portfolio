@@ -36,18 +36,30 @@ const businessSchema = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="/icons/favicon-96x96.png" sizes="96x96" />
-  <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
-  <link rel="shortcut icon" href="/icons/favicon.ico" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
-  <meta name="apple-mobile-web-app-title" content="PAUSAO" />
-  <link rel="manifest" href="/site.webmanifest" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="/icons/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
+    <link rel="shortcut icon" href="/icons/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/icons/apple-touch-icon.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="PAUSAO" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="canonical" href={canonicalURL} />
 
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="google-site-verification" content="xlov_iOha16veipf3DsRtDGqOjMWhvxC_I29NWcnXHY" />
-    
+    <meta
+      name="google-site-verification"
+      content="xlov_iOha16veipf3DsRtDGqOjMWhvxC_I29NWcnXHY"
+    />
+
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="PAUSAO" />
     <meta property="og:title" content={title} />
@@ -66,22 +78,25 @@ const businessSchema = {
     />
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-97N7L0Z2F0"
-    ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
+
       function gtag() {
         dataLayer.push(arguments);
       }
 
-      // Por defecto, denegado hasta que el usuario decida
+      // Consentimiento por defecto: NO ANALYTICS
       gtag("consent", "default", {
         analytics_storage: "denied",
       });
 
       gtag("js", new Date());
+
       gtag("config", "G-97N7L0Z2F0");
     </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-97N7L0Z2F0"
+    ></script>
   </head>
 
   <body>

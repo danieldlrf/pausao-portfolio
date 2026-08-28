@@ -1,11 +1,18 @@
 <div id="cookie-banner" class="cookieBanner" hidden>
   <p class="cookieText">
     Usamos cookies de analítica para entender cómo se usa esta web. Puedes
-    aceptarlas o rechazarlas — consulta más en nuestra <a class="cookieLink" href="/politica-privacidad">Política de Privacidad</a>.
+    aceptarlas o rechazarlas — consulta más en nuestra
+    <a class="cookieLink" href="/privacy-policy">Política de Privacidad</a>.
   </p>
+
   <div class="cookieActions">
-    <button type="button" class="btn btn-linea" id="cookie-reject">Rechazar</button>
-    <button type="button" class="btn btn-oscuro" id="cookie-accept">Aceptar</button>
+    <button type="button" class="btn btn-linea" id="cookie-reject">
+      Rechazar
+    </button>
+
+    <button type="button" class="btn btn-oscuro" id="cookie-accept">
+      Aceptar
+    </button>
   </div>
 </div>
 
@@ -16,20 +23,38 @@
 
   const consent = localStorage.getItem("cookie-consent");
 
-  if (consent === "granted") {
-    (window as any).gtag?.("consent", "update", { analytics_storage: "granted" });
-  } else if (consent === null) {
+  // Mostrar el banner solamente si el usuario todavía no ha elegido.
+  if (consent === null) {
     banner.hidden = false;
+  } else if (consent === "granted") {
+    (window as any).gtag?.("consent", "update", {
+      analytics_storage: "granted",
+    });
+  } else if (consent === "denied") {
+    (window as any).gtag?.("consent", "update", {
+      analytics_storage: "denied",
+    });
   }
 
+  // ACEPTAR
   acceptBtn?.addEventListener("click", () => {
     localStorage.setItem("cookie-consent", "granted");
-    (window as any).gtag?.("consent", "update", { analytics_storage: "granted" });
+
+    (window as any).gtag?.("consent", "update", {
+      analytics_storage: "granted",
+    });
+
     banner.hidden = true;
   });
 
+  // RECHAZAR
   rejectBtn?.addEventListener("click", () => {
     localStorage.setItem("cookie-consent", "denied");
+
+    (window as any).gtag?.("consent", "update", {
+      analytics_storage: "denied",
+    });
+
     banner.hidden = true;
   });
 </script>

@@ -1736,6 +1736,11 @@ body.no-scroll {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
+.cookieBanner[hidden] {
+    display: none !important;
+}
+
+
 .cookieText {
     font-family: var(--font-body);
     font-size: var(--text-small);
