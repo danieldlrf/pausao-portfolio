@@ -2,25 +2,85 @@
 import "../styles/global.css";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
-const { title = "PAUSAO" } = Astro.props;
+import Cookies from "../components/Cookies.astro";
+
+const {
+  title = "PAUSAO — Web, ERP y branding para tu negocio",
+  description = "Rediseñamos, automatizamos e impulsamos las ventas de tu pyme con web, sistema ERP y marca, todo en un mismo servicio.",
+} = Astro.props;
+
+const siteUrl = "https://pausao.onrender.com";
+const canonicalURL = new URL(Astro.url.pathname, siteUrl);
+const ogImage = `${siteUrl}/images/logoWeb.webp`;
+
+const businessSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "PAUSAO",
+  description: description,
+  url: siteUrl,
+  email: "pausao.oficial@gmail.com",
+  telephone: "+34679681792",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Dos Hermanas",
+    addressRegion: "Sevilla",
+    addressCountry: "ES",
+  },
+  areaServed: "ES",
+  image: ogImage,
+};
 ---
 
 <html lang="es">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml" />
-    <link rel="icon" href="/icons/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="/icons/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
+  <link rel="shortcut icon" href="/icons/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="PAUSAO" />
+  <link rel="manifest" href="/site.webmanifest" />
+    <link rel="canonical" href={canonicalURL} />
 
-    <title>PAUSAO — Web, ERP y branding para tu negocio</title>
-    <meta name="description"
-      content="Rediseñamos, automatizamos e impulsamos las ventas de tu pyme con web, sistema ERP y marca, todo en un mismo servicio."/>
-
-    <meta property="og:title" content="PAUSAO — Tu negocio, sin correr" />
-    <meta property="og:description" content="Web, sistema de gestión y rebranding para pymes."/>
-    <meta property="og:image" content="/logo/logoWeb.png" />
-    <meta property="og:url" content="https://pausao.onrender.com" />
     <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PAUSAO" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:locale" content="es_ES" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(businessSchema)}
+    />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-97N7L0Z2F0"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
+      // Por defecto, denegado hasta que el usuario decida
+      gtag("consent", "default", {
+        analytics_storage: "denied",
+      });
+
+      gtag("js", new Date());
+      gtag("config", "G-97N7L0Z2F0");
+    </script>
   </head>
 
   <body>
@@ -29,5 +89,6 @@ const { title = "PAUSAO" } = Astro.props;
       <slot />
     </main>
     <Footer />
+    <Cookies />
   </body>
 </html>

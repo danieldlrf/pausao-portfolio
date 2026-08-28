@@ -1,0 +1,35 @@
+<div id="cookie-banner" class="cookieBanner" hidden>
+  <p class="cookieText">
+    Usamos cookies de analítica para entender cómo se usa esta web. Puedes
+    aceptarlas o rechazarlas — consulta más en nuestra <a class="cookieLink" href="/politica-privacidad">Política de Privacidad</a>.
+  </p>
+  <div class="cookieActions">
+    <button type="button" class="btn btn-linea" id="cookie-reject">Rechazar</button>
+    <button type="button" class="btn btn-oscuro" id="cookie-accept">Aceptar</button>
+  </div>
+</div>
+
+<script>
+  const banner = document.querySelector("#cookie-banner") as HTMLElement;
+  const acceptBtn = document.querySelector("#cookie-accept");
+  const rejectBtn = document.querySelector("#cookie-reject");
+
+  const consent = localStorage.getItem("cookie-consent");
+
+  if (consent === "granted") {
+    (window as any).gtag?.("consent", "update", { analytics_storage: "granted" });
+  } else if (consent === null) {
+    banner.hidden = false;
+  }
+
+  acceptBtn?.addEventListener("click", () => {
+    localStorage.setItem("cookie-consent", "granted");
+    (window as any).gtag?.("consent", "update", { analytics_storage: "granted" });
+    banner.hidden = true;
+  });
+
+  rejectBtn?.addEventListener("click", () => {
+    localStorage.setItem("cookie-consent", "denied");
+    banner.hidden = true;
+  });
+</script>

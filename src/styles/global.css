@@ -1717,3 +1717,64 @@ body.no-scroll {
 .customPackForm .fieldCheckbox {
     color: var(--color-text);
 }
+.cookieBanner {
+    position: fixed;
+    bottom: var(--spacing-md);
+    left: var(--spacing-md);
+    right: var(--spacing-md);
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: var(--color-text);
+    color: var(--color-text-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spacing-md);
+    z-index: 2000;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.cookieText {
+    font-family: var(--font-body);
+    font-size: var(--text-small);
+    margin: 0;
+    flex: 1 1 260px;
+}
+
+.cookieLink {
+    color: var(--color-accent);
+}
+
+.cookieActions {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-shrink: 0;
+}
+
+.cookieActions .btn {
+    padding: 0.5rem 1.25rem;
+    font-size: var(--text-small);
+}
+
+.cookieActions .btn-linea {
+    border-color: var(--color-text-light);
+    color: var(--color-text-light);
+}
+
+.cookieActions .btn-linea:hover {
+    background-color: var(--color-text-light);
+    color: var(--color-text);
+}
+
+@media (max-width: 500px) {
+    .cookieBanner {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .cookieActions {
+        justify-content: center;
+    }
+}
