@@ -47,6 +47,7 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Paquete 1"
               form="custom-pack-form"
+            data-price={priceAfter(900, DISCOUNT, PACK_EXTRA_DISCOUNT)}
             />
             <span>Elegir este pack</span>
           </label>
@@ -81,6 +82,7 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Paquete 2"
               form="custom-pack-form"
+            data-price={priceAfter(1500, DISCOUNT, PACK_EXTRA_DISCOUNT)}
             />
             <span>Elegir este pack</span>
           </label>
@@ -115,6 +117,7 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Paquete 3"
               form="custom-pack-form"
+            data-price={priceAfter(2200, DISCOUNT, PACK_EXTRA_DISCOUNT)}
             />
             <span>Elegir este pack</span>
           </label>
@@ -150,6 +153,7 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Arranque Digital"
               form="custom-pack-form"
+            data-price={priceAfter(1200, DISCOUNT)}
             />
             <span>Elegir este pack</span>
           </label>
@@ -182,6 +186,7 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Transformación Digital"
               form="custom-pack-form"
+            data-price={priceAfter(2500, DISCOUNT)}
             />
             <span>Elegir este pack</span>
           </label>
@@ -216,6 +221,7 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Todo Incluido"
               form="custom-pack-form"
+            data-price={priceAfter(4000, DISCOUNT)}
             />
             <span>Elegir este pack</span>
           </label>
@@ -262,7 +268,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Rebranding"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(900, DISCOUNT)}
+              />
             <span>Rebranding</span>
           </span>
           <PriceTag base={900} discount={DISCOUNT} />
@@ -276,7 +283,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Identidad visual"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(650, DISCOUNT)}
+              />
             <span>Identidad visual</span>
           </span>
           <PriceTag base={650} discount={DISCOUNT} />
@@ -290,7 +298,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Diseño de logotipo"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(300, DISCOUNT)}
+              />
             <span>Diseño de logotipo</span>
           </span>
           <PriceTag base={300} discount={DISCOUNT} />
@@ -304,7 +313,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Rediseño de logotipo"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(250, DISCOUNT)}
+              />
             <span>Rediseño de logotipo</span>
           </span>
           <PriceTag base={250} discount={DISCOUNT} />
@@ -318,7 +328,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Paleta de colores"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(80, DISCOUNT)}
+              />
             <span>Paleta de colores</span>
           </span>
           <PriceTag base={80} discount={DISCOUNT} />
@@ -332,7 +343,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Tipografías"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(60, DISCOUNT)}
+              />
             <span>Tipografías</span>
           </span>
           <PriceTag base={60} discount={DISCOUNT} />
@@ -346,7 +358,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Recursos gráficos"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(120, DISCOUNT)}
+              />
             <span>Recursos gráficos</span>
           </span>
           <PriceTag base={120} discount={DISCOUNT} />
@@ -360,7 +373,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Aplicaciones de marca"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(100, DISCOUNT)}
+              />
             <span>Aplicaciones de marca</span>
           </span>
           <PriceTag base={100} discount={DISCOUNT} />
@@ -374,7 +388,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Mini guía de identidad visual"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(150, DISCOUNT)}
+              />
             <span>Mini guía de identidad visual</span>
           </span>
           <PriceTag base={150} discount={DISCOUNT} />
@@ -392,7 +407,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Optimización de perfil"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(75, DISCOUNT)}
+              />
             <span>Optimización de perfil</span>
           </span>
           <PriceTag base={75} discount={DISCOUNT} />
@@ -406,7 +422,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Kit de contenido para redes"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(250, DISCOUNT)}
+              />
             <span>Kit de contenido para redes</span>
           </span>
           <PriceTag base={250} discount={DISCOUNT} />
@@ -420,7 +437,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Adaptación de identidad visual a redes"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(100, DISCOUNT)}
+              />
             <span>Adaptación de identidad visual a redes</span>
           </span>
           <PriceTag base={100} discount={DISCOUNT} />
@@ -438,7 +456,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Flyer"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(50, DISCOUNT)}
+              />
             <span>Flyer</span>
           </span>
           <PriceTag base={50} discount={DISCOUNT} />
@@ -452,7 +471,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Cartel"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(60, DISCOUNT)}
+              />
             <span>Cartel</span>
           </span>
           <PriceTag base={60} discount={DISCOUNT} />
@@ -466,7 +486,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Menú"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(100, DISCOUNT)}
+              />
             <span>Menú</span>
           </span>
           <PriceTag base={100} discount={DISCOUNT} />
@@ -480,7 +501,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Tarjeta"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(40, DISCOUNT)}
+              />
             <span>Tarjeta</span>
           </span>
           <PriceTag base={40} discount={DISCOUNT} />
@@ -494,7 +516,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Presentación"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(150, DISCOUNT)}
+              />
             <span>Presentación</span>
           </span>
           <PriceTag base={150} discount={DISCOUNT} />
@@ -508,7 +531,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Banner"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(40, DISCOUNT)}
+              />
             <span>Banner</span>
           </span>
           <PriceTag base={40} discount={DISCOUNT} />
@@ -522,7 +546,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Material promocional"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(50, DISCOUNT)}
+              />
             <span>Material promocional</span>
           </span>
           <PriceTag base={50} discount={DISCOUNT} />
@@ -536,7 +561,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Pieza gráfica para campaña"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(80, DISCOUNT)}
+              />
             <span>Pieza gráfica para campaña</span>
           </span>
           <PriceTag base={80} discount={DISCOUNT} />
@@ -550,7 +576,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Mockup"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(30, DISCOUNT)}
+              />
             <span>Mockup</span>
           </span>
           <PriceTag base={30} discount={DISCOUNT} />
@@ -568,7 +595,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Moodboard"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(75, DISCOUNT)}
+              />
             <span>Moodboard</span>
           </span>
           <PriceTag base={75} discount={DISCOUNT} />
@@ -582,7 +610,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Concepto visual"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(120, DISCOUNT)}
+              />
             <span>Concepto visual</span>
           </span>
           <PriceTag base={120} discount={DISCOUNT} />
@@ -596,7 +625,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Dirección visual de proyecto"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(150, DISCOUNT)}
+              />
             <span>Dirección visual de proyecto</span>
           </span>
           <PriceTag base={150} discount={DISCOUNT} />
@@ -614,7 +644,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Diseño visual de página web"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(500, DISCOUNT)}
+              />
             <span>Diseño visual de página web</span>
           </span>
           <PriceTag base={500} discount={DISCOUNT} />
@@ -628,7 +659,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Diseño de landing page"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(300, DISCOUNT)}
+              />
             <span>Diseño de landing page</span>
           </span>
           <PriceTag base={300} discount={DISCOUNT} />
@@ -642,7 +674,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Elementos gráficos para web"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(40, DISCOUNT)}
+              />
             <span>Elementos gráficos para web</span>
           </span>
           <PriceTag base={40} discount={DISCOUNT} />
@@ -656,7 +689,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Banner para web"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(40, DISCOUNT)}
+              />
             <span>Banner para web</span>
           </span>
           <PriceTag base={40} discount={DISCOUNT} />
@@ -680,8 +714,9 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Diseño de páginas webs"
               form="custom-pack-form"
-            />
-            <span>Diseño de páginas webs (a medida incrementa el precio)</span>
+            data-price={priceAfter(800, DISCOUNT)}
+              />
+            <span>Diseño de páginas webs</span>
           </span>
           <PriceTag base={800} discount={DISCOUNT} />
         </label>
@@ -694,7 +729,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Diseño de tiendas online"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(1500, DISCOUNT)}
+              />
             <span>Diseño de tiendas online</span>
           </span>
           <PriceTag base={1500} discount={DISCOUNT} />
@@ -708,7 +744,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="SEO técnico básico"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(250, DISCOUNT)}
+              />
             <span>SEO técnico básico</span>
           </span>
           <PriceTag base={250} discount={DISCOUNT} />
@@ -722,7 +759,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Migración de webs antiguas a algo moderno"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(500, DISCOUNT)}
+              />
             <span>Migración de webs antiguas a algo moderno</span>
           </span>
           <PriceTag base={500} discount={DISCOUNT} />
@@ -740,7 +778,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Instalación y configuración inicial Odoo"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(1900, DISCOUNT)}
+              />
             <span>Instalación y configuración inicial</span>
           </span>
           <PriceTag base={1900} discount={DISCOUNT} />
@@ -754,7 +793,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Módulos custom Odoo"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(300, DISCOUNT)}
+              />
             <span>Módulos custom</span>
           </span>
           <PriceTag base={300} discount={DISCOUNT} />
@@ -768,7 +808,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Formación del sistema Odoo"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(55, DISCOUNT)}
+              />
             <span>Formación al cliente para usar el sistema</span>
           </span>
           <PriceTag base={55} discount={DISCOUNT} suffix="/hora (1ª gratis)" />
@@ -786,7 +827,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Automatización con n8n"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(180, DISCOUNT)}
+              />
             <span>n8n para flujos simples</span>
           </span>
           <PriceTag base={180} discount={DISCOUNT} suffix="/flujo" />
@@ -800,7 +842,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Procesos con Bonita"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(1200, DISCOUNT)}
+              />
             <span>Bonita para procesos complejos/multi-departamento</span>
           </span>
           <PriceTag
@@ -822,7 +865,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Gestión de dominio y hosting"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(70, DISCOUNT)}
+              />
             <span>Gestión de dominio y hosting</span>
           </span>
           <PriceTag
@@ -840,7 +884,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Copias de seguridad automatizadas"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(250, DISCOUNT)}
+              />
             <span>Configuración y copias de seguridad automatizadas</span>
           </span>
           <PriceTag base={250} discount={DISCOUNT} suffix="/año" />
@@ -854,7 +899,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Certificados SSL y seguridad básica"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(80, DISCOUNT)}
+              />
             <span>Gestión de certificados SSL y seguridad básica</span>
           </span>
           <PriceTag base={80} discount={DISCOUNT} suffix="/año" />
@@ -868,7 +914,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Soporte por incidencia"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(50, DISCOUNT)}
+              />
             <span>Soporte por incidencia</span>
           </span>
           <PriceTag base={50} discount={DISCOUNT} suffix="/hora" />
@@ -882,7 +929,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Migración de correo corporativo"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(250, DISCOUNT)}
+              />
             <span
               >Migración de correo corporativo (Gmail Workspace, Outlook)</span
             >
@@ -902,7 +950,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               name="services"
               value="Auditoría digital inicial"
               form="custom-pack-form"
-            />
+            data-price={priceAfter(50, DISCOUNT)}
+              />
             <span>Análisis de qué tiene el negocio ahora y qué le falta</span>
           </span>
           <PriceTag base={50} discount={DISCOUNT} />
@@ -955,6 +1004,10 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
           >Política de Privacidad</a
         >
       </label>
+      <input type="hidden" name="estimated_price" id="estimated-price-field" value="0" />
+      <p id="estimated-price-display" class="fieldFull estimatedPrice" hidden>
+        Presupuesto estimado: <strong id="estimated-price-amount">0€</strong>
+      </p>
       <div class="customPackActions fieldFull">
         <button type="submit" class="btn btn-oscuro">
           <span class="btnText">Enviar selección</span>
@@ -1015,6 +1068,40 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
     ) as HTMLButtonElement;
     const btnText = submitBtn?.querySelector(".btnText") as HTMLElement;
     const spinner = submitBtn?.querySelector(".spinner") as HTMLElement;
+    const estimatedPriceField = document.querySelector(
+      "#estimated-price-field",
+    ) as HTMLInputElement;
+    const estimatedPriceDisplay = document.querySelector(
+      "#estimated-price-display",
+    ) as HTMLElement;
+    const estimatedPriceAmount = document.querySelector(
+      "#estimated-price-amount",
+    ) as HTMLElement;
+
+    function updateEstimatedPrice() {
+      if (!form || !estimatedPriceField) return;
+      const checked = form.querySelectorAll<HTMLInputElement>(
+        'input[name="services"]:checked',
+      );
+      let total = 0;
+      checked.forEach((input) => {
+        total += Number(input.dataset.price || 0);
+      });
+      estimatedPriceField.value = String(total);
+      if (estimatedPriceAmount) {
+        estimatedPriceAmount.textContent = `${total}€`;
+      }
+      if (estimatedPriceDisplay) {
+        estimatedPriceDisplay.hidden = total <= 0;
+      }
+    }
+
+    document.addEventListener("change", (event) => {
+      const target = event.target as HTMLInputElement;
+      if (target?.name === "services") {
+        updateEstimatedPrice();
+      }
+    });
 
     toggleBtn?.addEventListener("click", () => {
       form.hidden = false;
@@ -1026,6 +1113,7 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
 
     cancelBtn?.addEventListener("click", () => {
       form.reset();
+      updateEstimatedPrice();
       form.hidden = true;
       toggleBtn.hidden = false;
       message!.textContent = "";
@@ -1053,6 +1141,7 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
         if (response.ok) {
           message!.textContent = "Mensaje recibido :)";
           form.reset();
+          updateEstimatedPrice();
           form.hidden = true;
           toggleBtn!.hidden = false;
           servicesList?.classList.remove("customizing");
