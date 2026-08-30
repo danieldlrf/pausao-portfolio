@@ -1873,3 +1873,104 @@ body.no-scroll {
 #packs {
     position: relative;
 }
+
+.packSelect {
+  display: none;
+}
+ 
+.servicesPacks.customizing .packSelect {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  align-self: flex-start;
+  margin-bottom: 0.6rem;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--color-brand);
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: var(--color-brand);
+  background: var(--color-background);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+ 
+.servicesPacks.customizing .packSelect:hover {
+  background: var(--color-brand);
+  color: var(--color-background);
+}
+ 
+/* El radio nativo se sustituye visualmente por el estado
+   del propio chip, así que lo ocultamos pero lo dejamos
+   accesible (focus visible por teclado incluido) */
+.packRadio {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+ 
+/* Chip marcado: pack seleccionado */
+.packSelect:has(.packRadio:checked) {
+  background: var(--color-brand);
+  color: var(--color-background);
+}
+ 
+/* Foco visible por teclado (accesibilidad) */
+.packRadio:focus-visible + span {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+  border-radius: 999px;
+}
+ 
+/* Cuando un pack está seleccionado, resalto ligeramente
+   toda la card para que se note de un vistazo */
+.card:has(.packRadio:checked) {
+  outline: 2px solid var(--color-brand);
+  outline-offset: -2px;
+}
+ 
+/* Ajuste responsive: en pantallas pequeñas el chip
+   ocupa todo el ancho para que sea fácil de tocar */
+@media (max-width: 600px) {
+  .servicesPacks.customizing .packSelect {
+    width: 100%;
+    justify-content: center;
+  }
+}
+.customPackToggle {
+  position: fixed;
+  left: 50%;
+  bottom: 1.25rem;
+  transform: translateX(-50%);
+  z-index: 1000;
+ 
+  /* margen extra en dispositivos con "isla"/barra de gestos */
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+ 
+.customPackToggle #togglePackForm {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+}
+ 
+/* Para que el botón fijo no tape el final de la página
+   (footer, sección de condiciones), dejamos aire extra
+   al final del contenido */
+.policies {
+  padding-bottom: 5rem;
+}
+ 
+@media (max-width: 600px) {
+  .customPackToggle {
+    bottom: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+ 
+  .customPackToggle #togglePackForm {
+    width: calc(100% - 2rem);
+    max-width: 22rem;
+  }
+}

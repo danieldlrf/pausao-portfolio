@@ -40,6 +40,16 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
       <!-- MARKETING (con 10% extra) -->
       <div class="card">
         <div class="container">
+          <label class="packSelect">
+            <input
+              type="radio"
+              class="packRadio"
+              name="services"
+              value="Paquete 1"
+              form="custom-pack-form"
+            />
+            <span>Elegir este pack</span>
+          </label>
           <p>MARKETING</p>
           <div class="textodistinto"><h4><b>Paquete 1</b></h4></div>
           <p>Descripción breve del paquete.</p>
@@ -64,6 +74,16 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
 
       <div class="card">
         <div class="container">
+          <label class="packSelect">
+            <input
+              type="radio"
+              class="packRadio"
+              name="services"
+              value="Paquete 2"
+              form="custom-pack-form"
+            />
+            <span>Elegir este pack</span>
+          </label>
           <p>MARKETING</p>
           <div class="textodistinto"><h4><b>Paquete 2</b></h4></div>
           <p>Descripción breve del paquete.</p>
@@ -88,6 +108,16 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
 
       <div class="card">
         <div class="container">
+          <label class="packSelect">
+            <input
+              type="radio"
+              class="packRadio"
+              name="services"
+              value="Paquete 3"
+              form="custom-pack-form"
+            />
+            <span>Elegir este pack</span>
+          </label>
           <p>MARKETING</p>
           <div class="textodistinto"><h4><b>Paquete 3</b></h4></div>
           <p>Descripción breve del paquete.</p>
@@ -113,6 +143,16 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
       <!-- INFORMÁTICA (solo descuento general) -->
       <div class="card">
         <div class="container">
+          <label class="packSelect">
+            <input
+              type="radio"
+              class="packRadio"
+              name="services"
+              value="Arranque Digital"
+              form="custom-pack-form"
+            />
+            <span>Elegir este pack</span>
+          </label>
           <p>INFORMÁTICA</p>
           <div class="textodistinto"><h4><b>Arranque Digital</b></h4></div>
           <p>Descripción breve del paquete.</p>
@@ -135,6 +175,16 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
 
       <div class="card">
         <div class="container">
+          <label class="packSelect">
+            <input
+              type="radio"
+              class="packRadio"
+              name="services"
+              value="Transformación Digital"
+              form="custom-pack-form"
+            />
+            <span>Elegir este pack</span>
+          </label>
           <p>INFORMÁTICA</p>
           <div class="textodistinto">
             <h4><b>Transformación Digital</b></h4>
@@ -159,6 +209,16 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
 
       <div class="card">
         <div class="container">
+          <label class="packSelect">
+            <input
+              type="radio"
+              class="packRadio"
+              name="services"
+              value="Todo Incluido"
+              form="custom-pack-form"
+            />
+            <span>Elegir este pack</span>
+          </label>
           <p>INFORMÁTICA</p>
           <div class="textodistinto"><h4><b>Todo Incluido</b></h4></div>
           <p>Descripción breve del paquete.</p>
@@ -183,7 +243,7 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
 
   <section class="customPackToggle">
     <button type="button" class="btn btn-oscuro" id="togglePackForm">
-      Personaliza tu paquete
+      Haz tu presupuesto
     </button>
   </section>
 
@@ -621,7 +681,7 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
               value="Diseño de páginas webs"
               form="custom-pack-form"
             />
-            <span>Diseño de páginas webs</span>
+            <span>Diseño de páginas webs (a medida incrementa el precio)</span>
           </span>
           <PriceTag base={800} discount={DISCOUNT} />
         </label>
@@ -949,6 +1009,7 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
     const form = document.querySelector("#custom-pack-form") as HTMLFormElement;
     const message = document.querySelector("#custom-pack-message");
     const servicesList = document.querySelector(".servicesList");
+    const servicesPacks = document.querySelector(".servicesPacks");
     const submitBtn = form?.querySelector(
       "button[type=submit]",
     ) as HTMLButtonElement;
@@ -959,6 +1020,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
       form.hidden = false;
       toggleBtn.hidden = true;
       servicesList?.classList.add("customizing");
+      servicesPacks?.classList.add("customizing");
+      window.scrollBy({ top: -120, behavior: "smooth" });
     });
 
     cancelBtn?.addEventListener("click", () => {
@@ -967,6 +1030,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
       toggleBtn.hidden = false;
       message!.textContent = "";
       servicesList?.classList.remove("customizing");
+      servicesPacks?.classList.remove("customizing");
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
     form?.addEventListener("submit", async (event) => {
@@ -991,6 +1056,8 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
           form.hidden = true;
           toggleBtn!.hidden = false;
           servicesList?.classList.remove("customizing");
+          servicesPacks?.classList.remove("customizing");
+          window.scrollTo({ top: 0, behavior: "smooth" });
         } else {
           message!.textContent = "Ha ocurrido un problema. Inténtalo de nuevo.";
         }
