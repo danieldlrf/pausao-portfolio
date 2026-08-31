@@ -1080,7 +1080,7 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
 
     function updateEstimatedPrice() {
       if (!form || !estimatedPriceField) return;
-      const checked = form.querySelectorAll<HTMLInputElement>(
+      const checked = document.querySelectorAll<HTMLInputElement>(
         'input[name="services"]:checked',
       );
       let total = 0;
