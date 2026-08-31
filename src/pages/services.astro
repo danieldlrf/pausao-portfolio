@@ -1005,9 +1005,6 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
         >
       </label>
       <input type="hidden" name="estimated_price" id="estimated-price-field" value="0" />
-      <p id="estimated-price-display" class="fieldFull estimatedPrice" hidden>
-        Presupuesto estimado: <strong id="estimated-price-amount">0€</strong>
-      </p>
       <div class="customPackActions fieldFull">
         <button type="submit" class="btn btn-oscuro">
           <span class="btnText">Enviar selección</span>
@@ -1071,12 +1068,6 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
     const estimatedPriceField = document.querySelector(
       "#estimated-price-field",
     ) as HTMLInputElement;
-    const estimatedPriceDisplay = document.querySelector(
-      "#estimated-price-display",
-    ) as HTMLElement;
-    const estimatedPriceAmount = document.querySelector(
-      "#estimated-price-amount",
-    ) as HTMLElement;
 
     function updateEstimatedPrice() {
       if (!form || !estimatedPriceField) return;
@@ -1088,12 +1079,6 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
         total += Number(input.dataset.price || 0);
       });
       estimatedPriceField.value = String(total);
-      if (estimatedPriceAmount) {
-        estimatedPriceAmount.textContent = `${total}€`;
-      }
-      if (estimatedPriceDisplay) {
-        estimatedPriceDisplay.hidden = total <= 0;
-      }
     }
 
     document.addEventListener("change", (event) => {
