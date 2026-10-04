@@ -1,6 +1,6 @@
 ---
-// --- CONTROL DE DESCUENTOS (mismo mecanismo que en Servicios) ---
-const DISCOUNT = 40;
+// --- CONTROL DE DESCUENTOS (mismo valor que en servicios.astro) ---
+const DISCOUNT = 25;
 const PACK_EXTRA_DISCOUNT = 10;
 
 function priceAfter(base: number, discount: number, extraPercent = 0) {
@@ -9,6 +9,16 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
   if (extraPercent > 0) price = price * (1 - extraPercent / 100);
   return Math.round(price);
 }
+
+function formatPrice(n: number) {
+  return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
+const featuredPacks = [
+  { category: "MARKETING", name: "Identidad esencial", includes: ["Logotipo principal, secundario e isotipo (PNG, JPG, SVG, EPS)", "Sistema cromático", "Sistema tipográfico", "Mini guía de identidad en PDF"], base: 850, extra: 0, discount: true, recommended: false },
+  { category: "INTEGRADO", name: "Lanzamiento digital", includes: ["Entregables completos del paquete 1 (Identidad esencial)", "Entregables paquete 3 (Web corporativa funcional)"], base: 2250, extra: PACK_EXTRA_DISCOUNT, discount: true, recommended: false },
+  { category: "INTEGRADO", name: "Transformación total PAUSAO", includes: ["Entregables completos del paquete 2 (Universo visual)", "Entregables paquete 4 (Web avanzada, automatizaciones y ERP)", "Opcion a tienda online si se requiere"], base: 6250, extra: PACK_EXTRA_DISCOUNT, discount: true, recommended: true },
+];
 ---
 
 <section id="packs">
@@ -25,90 +35,42 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
   <p class="subtitles">PAQUETES</p>
   <p class="packsSubtitle">Tres formas de empezar</p>
   <div class="cardContainer">
-    <div class="card">
-      <div class="container">
-        <p>BRANDING</p>
-        <div class="textodistinto"><h4><b>Marca Completa</b></h4></div>
-        <p>
-          Identidad visual con criterio, lista para crecer sin perderse por el
-          camino
-        </p>
-        <div class="list-services1">
-          <ul class="lista-colores">
-            <li>Logo + tipografías + paleta </li>
-            <li>Logo + tipografías + paleta </li>
-            <li>Logo + tipografías + paleta </li>
-          </ul>
-        </div>
-        <div class="textodistinto">
-          {DISCOUNT > 0 ? (
-            <h4>
-              <span class="priceOld">DESDE 890€</span>{" "}
-              <b class="priceNew">DESDE {priceAfter(890, DISCOUNT, PACK_EXTRA_DISCOUNT)}€</b>
-            </h4>
-          ) : (
-            <h4><b>DESDE 890€</b></h4>
-          )}
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="container">
-        <p>BRANDING</p>
-        <div class="textodistinto"><h4><b>Marca Completa</b></h4></div>
-        <p>
-          Identidad visual con criterio, lista para crecer sin perderse por el
-          camino
-        </p>
-        <div class="list-services1">
-          <ul class="lista-colores">
-            <li>Logo + tipografías + paleta </li>
-            <li>Logo + tipografías + paleta </li>
-            <li>Logo + tipografías + paleta </li>
-          </ul>
-        </div>
-        <div class="textodistinto">
-          {DISCOUNT > 0 ? (
-            <h4>
-              <span class="priceOld">DESDE 890€</span>{" "}
-              <b class="priceNew">DESDE {priceAfter(890, DISCOUNT, PACK_EXTRA_DISCOUNT)}€</b>
-            </h4>
-          ) : (
-            <h4><b>DESDE 890€</b></h4>
-          )}
-        </div>
-      </div>
-    </div>
-
-    <div class="card" id="c3">
-      <span class="badge">Más elegido</span>
-      <div class="container">
-        <p>BRANDING</p>
-        <div class="textodistinto"><h4><b>Marca Completa</b></h4></div>
-        <p>
-          Identidad visual con criterio, lista para crecer sin perderse por el
-          camino
-        </p>
-        <div class="list-services1">
-          <ul class="lista-colores">
-            <li>Logo + tipografías + paleta </li>
-            <li>Logo + tipografías + paleta </li>
-            <li>Logo + tipografías + paleta </li>
-          </ul>
-        </div>
-        <div class="textodistinto">
-          {DISCOUNT > 0 ? (
-            <h4>
-              <span class="priceOld">DESDE 890€</span>{" "}
-              <b class="priceNew">DESDE {priceAfter(890, DISCOUNT, PACK_EXTRA_DISCOUNT)}€</b>
-            </h4>
-          ) : (
-            <h4><b>DESDE 890€</b></h4>
-          )}
-        </div>
-      </div>
-    </div>
+    {
+      featuredPacks.map((pack) => {
+        const appliedDiscount = pack.discount ? DISCOUNT : 0;
+        const finalPrice = priceAfter(pack.base, appliedDiscount, pack.extra);
+        return (
+          <div class="card" id={pack.recommended ? "c3" : undefined}>
+            {pack.recommended && <span class="badge">Recomendado</span>}
+            <div class="container">
+              <p>{pack.category}</p>
+              <div class="textodistinto">
+                <h4>
+                  <b>{pack.name}</b>
+                </h4>
+              </div>
+              <ul class="lista-colores">
+                {pack.includes.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+              <div class="textodistinto">
+                {appliedDiscount > 0 ? (
+                  <h4>
+                    <span class="priceOld">DESDE {formatPrice(pack.base)}€</span>{" "}
+                    <b class="priceNew">DESDE {formatPrice(finalPrice)}€</b>
+                  </h4>
+                ) : (
+                  <h4>
+                    <b>DESDE {formatPrice(pack.base)}€</b>
+                  </h4>
+                )}
+              </div>
+            </div>
+          </div>
+        );
+      })
+    }
   </div>
 </section>
 <div class="linkcontainer">

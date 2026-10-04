@@ -1974,3 +1974,331 @@ body.no-scroll {
     max-width: 22rem;
   }
 }
+
+/* ===== Sección redes sociales (paso 2) ===== */
+.redesSection {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: var(--section-padding);
+  scroll-margin-top: 6rem;
+}
+
+.redesSection[hidden] {
+  display: none;
+}
+
+.redesTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  color: var(--color-text);
+  margin: 0 0 var(--spacing-xs);
+}
+
+.redesText {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--color-text-muted);
+  margin: 0 0 var(--spacing-md);
+}
+
+.redesOptions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  max-width: 700px;
+  margin-bottom: var(--spacing-md);
+}
+
+.redesOption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: white;
+  border: 1px solid rgba(175, 76, 49, 0.15);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.redesOption:hover {
+  border-color: var(--color-brand);
+}
+
+.redesOption:has(.redesRadio:checked) {
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 2px var(--color-brand);
+}
+
+.redesOptionLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.redesRadio {
+  accent-color: var(--color-brand);
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* Que la sección del formulario no quede tapada al hacer scroll */
+.customPack,
+.servicesPacks {
+  scroll-margin-top: 6rem;
+}
+
+/* ===== Wizard horizontal ===== */
+.wizard {
+  overflow: hidden; /* oculta los paneles que están fuera de pantalla */
+  width: 100%;
+}
+
+.wizardTrack {
+  display: flex;
+  align-items: flex-start;
+  transition: transform 0.45s ease;
+}
+
+.wizardPanel {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+/* Paneles que no se ven: no ocupan altura ni reciben foco */
+.wizardPanel.inactive {
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.backBtn {
+  margin-top: var(--spacing-sm);
+}
+
+/* Los botones fijos (Haz tu presupuesto / Continuar) comparten sitio */
+.customPackToggle .btn[hidden] {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wizardTrack {
+    transition: none;
+  }
+}
+
+/* ===== Cards de redes sociales ===== */
+.redesOptions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--spacing-md);
+  max-width: 900px;
+  margin: var(--spacing-md) 0;
+  padding-top: 14px; /* hueco para la etiqueta "Recomendado" */
+}
+
+.redesCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-md) var(--spacing-sm);
+  background-color: white;
+  border: 1px solid rgba(175, 76, 49, 0.15);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.redesCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Seleccionada: mismo remarcado que los packs */
+.redesCard:has(.redesRadio:checked) {
+  outline: 2px solid var(--color-brand);
+  outline-offset: -2px;
+}
+
+.redesCard:has(.redesRadio:focus-visible),
+.redesSkip:has(.redesRadio:focus-visible) {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+/* Radio nativo oculto pero accesible por teclado */
+.redesRadio {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.redesBadge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--color-brand);
+  color: white;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.redesCardTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  color: var(--color-text);
+  margin: 0 0 var(--spacing-sm);
+  text-decoration-line: underline;
+  text-decoration-color: var(--color-brand);
+  text-underline-offset: 10px;
+  text-decoration-thickness: 3px;
+}
+
+.redesList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--spacing-md);
+}
+
+.redesList li {
+  position: relative;
+  padding: 0.4em 0 0.4em 1.2em;
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--color-text);
+  border-bottom: 1px solid rgba(175, 76, 49, 0.2);
+}
+
+.redesList li:last-child {
+  border-bottom: none;
+}
+
+.redesList li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--color-brand);
+}
+
+/* El precio siempre abajo, aunque las listas tengan distinta longitud */
+.redesPrice {
+  margin-top: auto;
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid rgba(140, 138, 128, 0.3);
+}
+
+.redesPrice .servicePrice {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+/* Botón "No, gracias" */
+.redesSkipRow {
+  display: flex;
+  justify-content: center;
+  max-width: 900px;
+  margin-bottom: var(--spacing-sm);
+}
+
+.redesSkip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.redesSkip:has(.redesRadio:checked) {
+  border-color: var(--color-brand);
+  color: var(--color-brand);
+  box-shadow: 0 0 0 2px var(--color-brand);
+}
+
+/* Precio de las cards de redes: mismo aspecto que el de los packs */
+.redesPrice .servicePrice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 0.5em;
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: bold;
+  color: var(--color-text);
+  white-space: normal;
+}
+
+.redesPrice .priceOld {
+  font-family: var(--font-body);
+  font-size: 0.55em;
+  font-weight: normal;
+  color: var(--color-text-muted);
+  text-decoration-line: line-through;
+  text-decoration-color: var(--color-brand);
+}
+
+.redesPrice .priceNew {
+  font-family: var(--font-display);
+  font-size: 1em;
+  font-weight: bold;
+  color: var(--color-brand);
+}
+
+.policyGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-lg);
+  max-width: var(--container-width);
+  margin: 0 auto;
+}
+
+.policyBlock:nth-child(3) {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 768px) {
+  .policyGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Cards de packs: lista de incluidos y precio siempre abajo */
+.card {
+  display: flex;
+}
+
+.card .container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card .lista-colores {
+  margin-bottom: var(--spacing-sm);
+}
+
+.card .lista-colores li {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--color-text);
+}
+
+/* El último bloque de la card es el precio: lo empujamos abajo */
+.card .container > .textodistinto:last-child {
+  margin-top: auto;
+}

@@ -4,7 +4,7 @@ import PriceTag from "../components/PriceTag.astro";
 
 // --- CONTROL DE DESCUENTOS ---
 // Pon DISCOUNT a 0 para desactivar todos los descuentos y mostrar precios finales sin tachar.
-const DISCOUNT = 40; // % de descuento general de lanzamiento
+const DISCOUNT = 25; // % de descuento general de lanzamiento
 const PACK_EXTRA_DISCOUNT = 10; // % extra SOLO para los 3 packs de Marketing
 
 function priceAfter(base: number, discount: number, extraPercent = 0) {
@@ -13,11 +13,48 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
   if (extraPercent > 0) price = price * (1 - extraPercent / 100);
   return Math.round(price);
 }
+
+function formatPrice(n: number) {
+  return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
+const packs = [
+  { category: "MARKETING", name: "Identidad esencial", includes: ["Logotipo principal, secundario e isotipo (PNG, JPG, SVG, EPS)", "Sistema cromático", "Sistema tipográfico", "Mini guía de identidad en PDF"], base: 850, extra: 0, discount: true },
+  { category: "MARKETING", name: "Universo visual y dirección de arte", includes: ["Todo lo del paquete 1", "Brandbook (manual de marca completo)", "Concepto creativo de campaña (moodboard y key visual)", "3 aplicaciones graficas a elegir (tarjetas, menú, cartelería, papelería o packaging)"], base: 1450, extra: 0, discount: true },
+  { category: "INFORMÁTICA", name: "Web corporativa funcional", includes: ["Diseño UI/UX adaptado a la identidad", "Desarrollo a medida responsive (móviles y tablets)", "SEO técnico", "Setup de infraestructura (dominio, hosting y SSL)"], base: 1400, extra: 0, discount: true },
+  { category: "INFORMÁTICA", name: "Web avanzada, automatizaciones y ERP", includes: ["Todo lo del paquete 3", "Desarrollo web a medida (enfocado a captación o servicios)", "Automatización base para flujos operativos (n8n / bonita (precio extra))", "Configuración inicial del ERP Odoo para la gestion del negocio y seguirdad de copias automatizadas", "Sistema CRM", "Opcion a añadir e-commerce (extra)"], base: 2900, extra: 0, discount: true },
+  { category: "INTEGRADO", name: "Lanzamiento digital", includes: ["Entregables completos del paquete 1 (Identidad esencial)"," Entregables paquete 3 (Web corporativa funcional)"], base: 2250, extra: PACK_EXTRA_DISCOUNT, discount: true },
+  { category: "INTEGRADO", name: "Transformación total PAUSAO", includes: ["Entregables completos del paquete 2 (Universo visual)"," Entregables paquete 4 (Web avanzada, automatizaciones y ERP)", "Opcion a tienda online si se requiere"], base: 6250, extra: PACK_EXTRA_DISCOUNT, discount: true },
+];
+
+const redes = [
+  {
+    name: "Kit esencial",
+    base: 225,
+    discount: false,
+    recommended: false,
+    includes: ["Qué incluye 1", "Qué incluye 2", "Qué incluye 3"],
+  },
+  {
+    name: "Kit completo",
+    base: 375,
+    discount: true,
+    recommended: true,
+    includes: ["Qué incluye 1", "Qué incluye 2", "Qué incluye 3", "Qué incluye 4"],
+  },
+  {
+    name: "Kit pro",
+    base: 595,
+    discount: true,
+    recommended: false,
+    includes: ["Qué incluye 1", "Qué incluye 2", "Qué incluye 3", "Qué incluye 4", "Qué incluye 5"],
+  },
+];
 ---
 
 <Layout
-  title="Servicios — PAUSAO"
-  description="Paquetes y servicios de branding, web y sistemas ERP para pymes en Sevilla."
+  title="Paquetes — PAUSAO"
+  description="Paquetes de branding, web y sistemas ERP para pymes en Sevilla."
 >
   <section class="servicesHero">
     {
@@ -31,992 +68,210 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
         </div>
       )
     }
-    <p class="subtitles">Servicios</p>
+    <p class="subtitles">Paquetes</p>
     <h1 class="servicesTitle">Nuestros servicios</h1>
+    <h5>Selecciona los servicios para tu proyecto (precios sin IVA)</h5>
   </section>
 
-  <section class="servicesPacks">
-    <div class="cardContainer cardContainerWrap">
-      <!-- MARKETING (con 10% extra) -->
-      <div class="card">
-        <div class="container">
-          <label class="packSelect">
-            <input
-              type="radio"
-              class="packRadio"
-              name="services"
-              value="Paquete 1"
-              form="custom-pack-form"
-            data-price={priceAfter(900, DISCOUNT, PACK_EXTRA_DISCOUNT)}
-            />
-            <span>Elegir este pack</span>
-          </label>
-          <p>MARKETING</p>
-          <div class="textodistinto"><h4><b>Paquete 1</b></h4></div>
-          <p>Descripción breve del paquete.</p>
-          <div class="textodistinto">
+  <div class="wizard" id="wizard">
+    <div class="wizardTrack" id="wizardTrack">
+      <!-- PASO 1: PACKS (varios) -->
+      <div class="wizardPanel" data-step="0">
+        <section class="servicesPacks" id="packs-section">
+          <div class="cardContainer cardContainerWrap">
             {
-              DISCOUNT > 0 ? (
-                <h4>
-                  <span class="priceOld">DESDE 900€</span>{" "}
-                  <b class="priceNew">
-                    DESDE {priceAfter(900, DISCOUNT, PACK_EXTRA_DISCOUNT)}€
-                  </b>
-                </h4>
-              ) : (
-                <h4>
-                  <b>DESDE 900€</b>
-                </h4>
-              )
+              packs.map((pack) => {
+                const appliedDiscount = pack.discount ? DISCOUNT : 0;
+                const finalPrice = priceAfter(pack.base, appliedDiscount, pack.extra);
+                return (
+                  <div class="card">
+                    <div class="container">
+                      <label class="packSelect">
+                        <input
+                          type="checkbox"
+                          class="packRadio"
+                          name="services"
+                          value={pack.name}
+                          form="custom-pack-form"
+                          autocomplete="off"
+                          data-price={finalPrice}
+                        />
+                        <span>Elegir este pack</span>
+                      </label>
+                      <p>{pack.category}</p>
+                      <div class="textodistinto">
+                        <h4>
+                          <b>{pack.name}</b>
+                        </h4>
+                      </div>
+                      <ul class="lista-colores">
+                        {pack.includes.map((item) => (
+                          <li>{item}</li>
+                        ))}
+                      </ul>
+                      <div class="textodistinto">
+                        {appliedDiscount > 0 ? (
+                          <h4>
+                            <span class="priceOld">DESDE {formatPrice(pack.base)}€</span>{" "}
+                            <b class="priceNew">DESDE {formatPrice(finalPrice)}€</b>
+                          </h4>
+                        ) : (
+                          <h4>
+                            <b>DESDE {formatPrice(pack.base)}€</b>
+                          </h4>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })
             }
           </div>
-        </div>
+        </section>
       </div>
 
-      <div class="card">
-        <div class="container">
-          <label class="packSelect">
-            <input
-              type="radio"
-              class="packRadio"
-              name="services"
-              value="Paquete 2"
-              form="custom-pack-form"
-            data-price={priceAfter(1500, DISCOUNT, PACK_EXTRA_DISCOUNT)}
-            />
-            <span>Elegir este pack</span>
-          </label>
-          <p>MARKETING</p>
-          <div class="textodistinto"><h4><b>Paquete 2</b></h4></div>
-          <p>Descripción breve del paquete.</p>
-          <div class="textodistinto">
+      <!-- PASO 2: REDES SOCIALES (solo 1) -->
+      <div class="wizardPanel inactive" data-step="1">
+        <section class="redesSection" id="redes-section">
+          <p class="subtitles">Paso 2</p>
+          <h2 class="redesTitle">Gestión de redes sociales</h2>
+          <p class="redesText">Ventaja exclusiva por tener un proyecto activo con PAUSAO: 20% de descuento directo aplicable en los kits completo y pro</p>
+
+          <div class="redesOptions">
             {
-              DISCOUNT > 0 ? (
-                <h4>
-                  <span class="priceOld">DESDE 1.500€</span>{" "}
-                  <b class="priceNew">
-                    DESDE {priceAfter(1500, DISCOUNT, PACK_EXTRA_DISCOUNT)}€
-                  </b>
-                </h4>
-              ) : (
-                <h4>
-                  <b>DESDE 1.500€</b>
-                </h4>
-              )
+              redes.map((r) => {
+                const appliedDiscount = r.discount ? DISCOUNT : 0;
+                return (
+                  <label class="redesCard">
+                    {r.recommended && <span class="redesBadge">Recomendado</span>}
+                    <input
+                      type="radio"
+                      class="redesRadio"
+                      name="redes"
+                      value={r.name}
+                      form="custom-pack-form"
+                      autocomplete="off"
+                      data-price={priceAfter(r.base, appliedDiscount)}
+                    />
+                    <h3 class="redesCardTitle">{r.name}</h3>
+                    <ul class="redesList">
+                      {r.includes.map((item) => (
+                        <li>{item}</li>
+                      ))}
+                    </ul>
+                    <div class="redesPrice">
+                      <PriceTag base={r.base} discount={appliedDiscount} />
+                    </div>
+                  </label>
+                );
+              })
             }
           </div>
-        </div>
+
+          <div class="redesSkipRow">
+            <label class="btn btn-linea redesSkip">
+              <input
+                type="radio"
+                class="redesRadio"
+                name="redes"
+                value="No, gracias"
+                form="custom-pack-form"
+                autocomplete="off"
+                data-price="0"
+              />
+              <span>No, gracias</span>
+            </label>
+          </div>
+
+          <button type="button" class="btn btn-linea backBtn" data-back="0">
+            ← Volver
+          </button>
+        </section>
       </div>
 
-      <div class="card">
-        <div class="container">
-          <label class="packSelect">
+      <!-- PASO 3: FORMULARIO -->
+      <div class="wizardPanel inactive" data-step="2">
+        <section class="customPack" id="form-section">
+          <p class="subtitles">Paso 3</p>
+          <h2 class="redesTitle">Datos de contacto</h2>
+          <p class="redesText">Demos el primer paso. Completa estos datos para que podamos preparar tu propuesta a medida y agendar nuestra primera cita.</p>
+          <form
+            id="custom-pack-form"
+            class="contactForm customPackForm"
+            action="https://formspree.io/f/xwlerjdb"
+            method="POST"
+            autocomplete="off"
+          >
+            <label class="field">
+              Nombre
+              <input type="text" name="name" required />
+            </label>
+            <label class="field">
+              Empresa
+              <input type="text" name="business" required />
+            </label>
+            <label class="field">
+              Correo
+              <input type="email" name="email" required />
+            </label>
+            <label class="field">
+              Teléfono
+              <input type="tel" name="phone" required />
+            </label>
+            <label class="field fieldFull">
+              Asunto
+              <input
+                type="text"
+                name="matter"
+                value="Paquete personalizado"
+                required
+              />
+            </label>
+            <label class="field fieldFull">
+              Cuéntanos un poco más:
+              <textarea name="comment"></textarea>
+            </label>
+            <label class="fieldCheckbox fieldFull">
+              <input type="checkbox" name="privacy" id="privacy-pack" required />
+              He leído y acepto la
+              <a target="_blank" rel="noopener" href="/privacy-policy"
+                >Política de Privacidad</a
+              >
+            </label>
             <input
-              type="radio"
-              class="packRadio"
-              name="services"
-              value="Paquete 3"
-              form="custom-pack-form"
-            data-price={priceAfter(2200, DISCOUNT, PACK_EXTRA_DISCOUNT)}
+              type="hidden"
+              name="estimated_price"
+              id="estimated-price-field"
+              value="0"
             />
-            <span>Elegir este pack</span>
-          </label>
-          <p>MARKETING</p>
-          <div class="textodistinto"><h4><b>Paquete 3</b></h4></div>
-          <p>Descripción breve del paquete.</p>
-          <div class="textodistinto">
-            {
-              DISCOUNT > 0 ? (
-                <h4>
-                  <span class="priceOld">DESDE 2.200€</span>{" "}
-                  <b class="priceNew">
-                    DESDE {priceAfter(2200, DISCOUNT, PACK_EXTRA_DISCOUNT)}€
-                  </b>
-                </h4>
-              ) : (
-                <h4>
-                  <b>DESDE 2.200€</b>
-                </h4>
-              )
-            }
-          </div>
-        </div>
-      </div>
+            <div class="customPackActions fieldFull">
+              <button type="button" class="btn btn-linea backBtn" data-back="1">
+                ← Volver
+              </button>
+              <button type="submit" class="btn btn-oscuro">
+                <span class="btnText">Enviar selección</span>
+                <span class="spinner" hidden></span>
+              </button>
+              <button type="button" class="btn btn-linea cancelPackFlow"
+                >Cancelar</button
+              >
+            </div>
+          </form>
 
-      <!-- INFORMÁTICA (solo descuento general) -->
-      <div class="card">
-        <div class="container">
-          <label class="packSelect">
-            <input
-              type="radio"
-              class="packRadio"
-              name="services"
-              value="Arranque Digital"
-              form="custom-pack-form"
-            data-price={priceAfter(1200, DISCOUNT)}
-            />
-            <span>Elegir este pack</span>
-          </label>
-          <p>INFORMÁTICA</p>
-          <div class="textodistinto"><h4><b>Arranque Digital</b></h4></div>
-          <p>Descripción breve del paquete.</p>
-          <div class="textodistinto">
-            {
-              DISCOUNT > 0 ? (
-                <h4>
-                  <span class="priceOld">DESDE 1.200€</span>{" "}
-                  <b class="priceNew">DESDE {priceAfter(1200, DISCOUNT)}€</b>
-                </h4>
-              ) : (
-                <h4>
-                  <b>DESDE 1.200€</b>
-                </h4>
-              )
-            }
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="container">
-          <label class="packSelect">
-            <input
-              type="radio"
-              class="packRadio"
-              name="services"
-              value="Transformación Digital"
-              form="custom-pack-form"
-            data-price={priceAfter(2500, DISCOUNT)}
-            />
-            <span>Elegir este pack</span>
-          </label>
-          <p>INFORMÁTICA</p>
-          <div class="textodistinto">
-            <h4><b>Transformación Digital</b></h4>
-          </div>
-          <p>Descripción breve del paquete.</p>
-          <div class="textodistinto">
-            {
-              DISCOUNT > 0 ? (
-                <h4>
-                  <span class="priceOld">DESDE 2.500€</span>{" "}
-                  <b class="priceNew">DESDE {priceAfter(2500, DISCOUNT)}€</b>
-                </h4>
-              ) : (
-                <h4>
-                  <b>DESDE 2.500€</b>
-                </h4>
-              )
-            }
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="container">
-          <label class="packSelect">
-            <input
-              type="radio"
-              class="packRadio"
-              name="services"
-              value="Todo Incluido"
-              form="custom-pack-form"
-            data-price={priceAfter(4000, DISCOUNT)}
-            />
-            <span>Elegir este pack</span>
-          </label>
-          <p>INFORMÁTICA</p>
-          <div class="textodistinto"><h4><b>Todo Incluido</b></h4></div>
-          <p>Descripción breve del paquete.</p>
-          <div class="textodistinto">
-            {
-              DISCOUNT > 0 ? (
-                <h4>
-                  <span class="priceOld">DESDE 4.000€</span>{" "}
-                  <b class="priceNew">DESDE {priceAfter(4000, DISCOUNT)}€</b>
-                </h4>
-              ) : (
-                <h4>
-                  <b>DESDE 4.000€</b>
-                </h4>
-              )
-            }
-          </div>
-        </div>
+          <p id="custom-pack-message" class="formMessage" aria-live="polite"></p>
+        </section>
       </div>
     </div>
-  </section>
+  </div>
 
+  <!-- Botones fijos: solo se ve uno a la vez -->
   <section class="customPackToggle">
     <button type="button" class="btn btn-oscuro" id="togglePackForm">
       Haz tu presupuesto
     </button>
-  </section>
-
-  <section class="servicesList">
-    <div class="serviceColumn">
-      <h2 class="serviceColTitle">Marketing</h2>
-
-      <div class="serviceGroup">
-        <h3 class="serviceGroupTitle">1. Branding e identidad</h3>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Rebranding"
-              form="custom-pack-form"
-            data-price={priceAfter(900, DISCOUNT)}
-              />
-            <span>Rebranding</span>
-          </span>
-          <PriceTag base={900} discount={DISCOUNT} />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Identidad visual"
-              form="custom-pack-form"
-            data-price={priceAfter(650, DISCOUNT)}
-              />
-            <span>Identidad visual</span>
-          </span>
-          <PriceTag base={650} discount={DISCOUNT} />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Diseño de logotipo"
-              form="custom-pack-form"
-            data-price={priceAfter(300, DISCOUNT)}
-              />
-            <span>Diseño de logotipo</span>
-          </span>
-          <PriceTag base={300} discount={DISCOUNT} />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Rediseño de logotipo"
-              form="custom-pack-form"
-            data-price={priceAfter(250, DISCOUNT)}
-              />
-            <span>Rediseño de logotipo</span>
-          </span>
-          <PriceTag base={250} discount={DISCOUNT} />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Paleta de colores"
-              form="custom-pack-form"
-            data-price={priceAfter(80, DISCOUNT)}
-              />
-            <span>Paleta de colores</span>
-          </span>
-          <PriceTag base={80} discount={DISCOUNT} />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Tipografías"
-              form="custom-pack-form"
-            data-price={priceAfter(60, DISCOUNT)}
-              />
-            <span>Tipografías</span>
-          </span>
-          <PriceTag base={60} discount={DISCOUNT} />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Recursos gráficos"
-              form="custom-pack-form"
-            data-price={priceAfter(120, DISCOUNT)}
-              />
-            <span>Recursos gráficos</span>
-          </span>
-          <PriceTag base={120} discount={DISCOUNT} />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Aplicaciones de marca"
-              form="custom-pack-form"
-            data-price={priceAfter(100, DISCOUNT)}
-              />
-            <span>Aplicaciones de marca</span>
-          </span>
-          <PriceTag base={100} discount={DISCOUNT} />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Mini guía de identidad visual"
-              form="custom-pack-form"
-            data-price={priceAfter(150, DISCOUNT)}
-              />
-            <span>Mini guía de identidad visual</span>
-          </span>
-          <PriceTag base={150} discount={DISCOUNT} />
-        </label>
-      </div>
-
-      <div class="serviceGroup">
-        <h3 class="serviceGroupTitle">2. Gestión de redes sociales</h3>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Optimización de perfil"
-              form="custom-pack-form"
-            data-price={priceAfter(75, DISCOUNT)}
-              />
-            <span>Optimización de perfil</span>
-          </span>
-          <PriceTag base={75} discount={DISCOUNT} />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Kit de contenido para redes"
-              form="custom-pack-form"
-            data-price={priceAfter(250, DISCOUNT)}
-              />
-            <span>Kit de contenido para redes</span>
-          </span>
-          <PriceTag base={250} discount={DISCOUNT} />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Adaptación de identidad visual a redes"
-              form="custom-pack-form"
-            data-price={priceAfter(100, DISCOUNT)}
-              />
-            <span>Adaptación de identidad visual a redes</span>
-          </span>
-          <PriceTag base={100} discount={DISCOUNT} />
-        </label>
-      </div>
-
-      <div class="serviceGroup">
-        <h3 class="serviceGroupTitle">3. Diseño gráfico</h3>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Flyer"
-              form="custom-pack-form"
-            data-price={priceAfter(50, DISCOUNT)}
-              />
-            <span>Flyer</span>
-          </span>
-          <PriceTag base={50} discount={DISCOUNT} />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Cartel"
-              form="custom-pack-form"
-            data-price={priceAfter(60, DISCOUNT)}
-              />
-            <span>Cartel</span>
-          </span>
-          <PriceTag base={60} discount={DISCOUNT} />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Menú"
-              form="custom-pack-form"
-            data-price={priceAfter(100, DISCOUNT)}
-              />
-            <span>Menú</span>
-          </span>
-          <PriceTag base={100} discount={DISCOUNT} />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Tarjeta"
-              form="custom-pack-form"
-            data-price={priceAfter(40, DISCOUNT)}
-              />
-            <span>Tarjeta</span>
-          </span>
-          <PriceTag base={40} discount={DISCOUNT} />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Presentación"
-              form="custom-pack-form"
-            data-price={priceAfter(150, DISCOUNT)}
-              />
-            <span>Presentación</span>
-          </span>
-          <PriceTag base={150} discount={DISCOUNT} />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Banner"
-              form="custom-pack-form"
-            data-price={priceAfter(40, DISCOUNT)}
-              />
-            <span>Banner</span>
-          </span>
-          <PriceTag base={40} discount={DISCOUNT} />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Material promocional"
-              form="custom-pack-form"
-            data-price={priceAfter(50, DISCOUNT)}
-              />
-            <span>Material promocional</span>
-          </span>
-          <PriceTag base={50} discount={DISCOUNT} />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Pieza gráfica para campaña"
-              form="custom-pack-form"
-            data-price={priceAfter(80, DISCOUNT)}
-              />
-            <span>Pieza gráfica para campaña</span>
-          </span>
-          <PriceTag base={80} discount={DISCOUNT} />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Mockup"
-              form="custom-pack-form"
-            data-price={priceAfter(30, DISCOUNT)}
-              />
-            <span>Mockup</span>
-          </span>
-          <PriceTag base={30} discount={DISCOUNT} />
-        </label>
-      </div>
-
-      <div class="serviceGroup">
-        <h3 class="serviceGroupTitle">4. Concepto creativo</h3>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Moodboard"
-              form="custom-pack-form"
-            data-price={priceAfter(75, DISCOUNT)}
-              />
-            <span>Moodboard</span>
-          </span>
-          <PriceTag base={75} discount={DISCOUNT} />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Concepto visual"
-              form="custom-pack-form"
-            data-price={priceAfter(120, DISCOUNT)}
-              />
-            <span>Concepto visual</span>
-          </span>
-          <PriceTag base={120} discount={DISCOUNT} />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Dirección visual de proyecto"
-              form="custom-pack-form"
-            data-price={priceAfter(150, DISCOUNT)}
-              />
-            <span>Dirección visual de proyecto</span>
-          </span>
-          <PriceTag base={150} discount={DISCOUNT} />
-        </label>
-      </div>
-
-      <div class="serviceGroup">
-        <h3 class="serviceGroupTitle">5. Diseño digital</h3>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Diseño visual de página web"
-              form="custom-pack-form"
-            data-price={priceAfter(500, DISCOUNT)}
-              />
-            <span>Diseño visual de página web</span>
-          </span>
-          <PriceTag base={500} discount={DISCOUNT} />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Diseño de landing page"
-              form="custom-pack-form"
-            data-price={priceAfter(300, DISCOUNT)}
-              />
-            <span>Diseño de landing page</span>
-          </span>
-          <PriceTag base={300} discount={DISCOUNT} />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Elementos gráficos para web"
-              form="custom-pack-form"
-            data-price={priceAfter(40, DISCOUNT)}
-              />
-            <span>Elementos gráficos para web</span>
-          </span>
-          <PriceTag base={40} discount={DISCOUNT} />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Banner para web"
-              form="custom-pack-form"
-            data-price={priceAfter(40, DISCOUNT)}
-              />
-            <span>Banner para web</span>
-          </span>
-          <PriceTag base={40} discount={DISCOUNT} />
-        </label>
-      </div>
-    </div>
-
-    <div class="serviceDivider" aria-hidden="true"></div>
-
-    <div class="serviceColumn">
-      <h2 class="serviceColTitle">Informática</h2>
-
-      <div class="serviceGroup">
-        <h3 class="serviceGroupTitle">1. Páginas web</h3>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Diseño de páginas webs"
-              form="custom-pack-form"
-            data-price={priceAfter(800, DISCOUNT)}
-              />
-            <span>Diseño de páginas webs (a medida aumenta el coste)</span>
-          </span>
-          <PriceTag base={800} discount={DISCOUNT} />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Diseño de tiendas online"
-              form="custom-pack-form"
-            data-price={priceAfter(1500, DISCOUNT)}
-              />
-            <span>Diseño de tiendas online</span>
-          </span>
-          <PriceTag base={1500} discount={DISCOUNT} />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="SEO técnico básico"
-              form="custom-pack-form"
-            data-price={priceAfter(250, DISCOUNT)}
-              />
-            <span>SEO técnico básico</span>
-          </span>
-          <PriceTag base={250} discount={DISCOUNT} />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Migración de webs antiguas a algo moderno"
-              form="custom-pack-form"
-            data-price={priceAfter(500, DISCOUNT)}
-              />
-            <span>Migración de webs antiguas a algo moderno</span>
-          </span>
-          <PriceTag base={500} discount={DISCOUNT} />
-        </label>
-      </div>
-
-      <div class="serviceGroup">
-        <h3 class="serviceGroupTitle">2. Sistema Odoo (ERP/CRM)</h3>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Instalación y configuración inicial Odoo"
-              form="custom-pack-form"
-            data-price={priceAfter(1900, DISCOUNT)}
-              />
-            <span>Instalación y configuración inicial</span>
-          </span>
-          <PriceTag base={1900} discount={DISCOUNT} />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Módulos custom Odoo"
-              form="custom-pack-form"
-            data-price={priceAfter(300, DISCOUNT)}
-              />
-            <span>Módulos custom</span>
-          </span>
-          <PriceTag base={300} discount={DISCOUNT} />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Formación del sistema Odoo"
-              form="custom-pack-form"
-            data-price={priceAfter(55, DISCOUNT)}
-              />
-            <span>Formación al cliente para usar el sistema</span>
-          </span>
-          <PriceTag base={55} discount={DISCOUNT} suffix="/hora (1ª gratis)" />
-        </label>
-      </div>
-
-      <div class="serviceGroup">
-        <h3 class="serviceGroupTitle">3. Automatización</h3>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Automatización con n8n"
-              form="custom-pack-form"
-            data-price={priceAfter(180, DISCOUNT)}
-              />
-            <span>n8n para flujos simples</span>
-          </span>
-          <PriceTag base={180} discount={DISCOUNT} suffix="/flujo" />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Procesos con Bonita"
-              form="custom-pack-form"
-            data-price={priceAfter(1200, DISCOUNT)}
-              />
-            <span>Bonita para procesos complejos/multi-departamento</span>
-          </span>
-          <PriceTag
-            base={1200}
-            discount={DISCOUNT}
-            suffix=" (presupuesto a medida)"
-          />
-        </label>
-      </div>
-
-      <div class="serviceGroup">
-        <h3 class="serviceGroupTitle">4. Infraestructura y soporte técnico</h3>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Gestión de dominio y hosting"
-              form="custom-pack-form"
-            data-price={priceAfter(70, DISCOUNT)}
-              />
-            <span>Gestión de dominio y hosting</span>
-          </span>
-          <PriceTag
-            base={70}
-            discount={DISCOUNT}
-            suffix=" setup + 15-20€/mes"
-          />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Copias de seguridad automatizadas"
-              form="custom-pack-form"
-            data-price={priceAfter(250, DISCOUNT)}
-              />
-            <span>Configuración y copias de seguridad automatizadas</span>
-          </span>
-          <PriceTag base={250} discount={DISCOUNT} suffix="/año" />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Certificados SSL y seguridad básica"
-              form="custom-pack-form"
-            data-price={priceAfter(80, DISCOUNT)}
-              />
-            <span>Gestión de certificados SSL y seguridad básica</span>
-          </span>
-          <PriceTag base={80} discount={DISCOUNT} suffix="/año" />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Soporte por incidencia"
-              form="custom-pack-form"
-            data-price={priceAfter(50, DISCOUNT)}
-              />
-            <span>Soporte por incidencia</span>
-          </span>
-          <PriceTag base={50} discount={DISCOUNT} suffix="/hora" />
-        </label>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Migración de correo corporativo"
-              form="custom-pack-form"
-            data-price={priceAfter(250, DISCOUNT)}
-              />
-            <span
-              >Migración de correo corporativo (Gmail Workspace, Outlook)</span
-            >
-          </span>
-          <PriceTag base={250} discount={DISCOUNT} />
-        </label>
-      </div>
-
-      <div class="serviceGroup">
-        <h3 class="serviceGroupTitle">5. Auditoría digital inicial</h3>
-
-        <label class="serviceRow">
-          <span class="serviceRowLeft">
-            <input
-              type="checkbox"
-              class="serviceCheck"
-              name="services"
-              value="Auditoría digital inicial"
-              form="custom-pack-form"
-            data-price={priceAfter(50, DISCOUNT)}
-              />
-            <span>Análisis de qué tiene el negocio ahora y qué le falta</span>
-          </span>
-          <PriceTag base={50} discount={DISCOUNT} />
-        </label>
-      </div>
-    </div>
-  </section>
-
-  <section class="customPack">
-    <form
-      id="custom-pack-form"
-      class="contactForm customPackForm"
-      action="https://formspree.io/f/xwlerjdb"
-      method="POST"
-      hidden
-    >
-      <label class="field">
-        Nombre
-        <input type="text" name="name" required />
-      </label>
-      <label class="field">
-        Empresa
-        <input type="text" name="business" required />
-      </label>
-      <label class="field">
-        Correo
-        <input type="email" name="email" required />
-      </label>
-      <label class="field">
-        Teléfono
-        <input type="tel" name="phone" required />
-      </label>
-      <label class="field fieldFull">
-        Asunto
-        <input
-          type="text"
-          name="matter"
-          value="Paquete personalizado"
-          required
-        />
-      </label>
-      <label class="field fieldFull">
-        Cuéntanos un poco más:
-        <textarea name="comment"></textarea>
-      </label>
-      <label class="fieldCheckbox fieldFull">
-        <input type="checkbox" name="privacy" id="privacy-pack" required />
-        He leído y acepto la
-        <a target="_blank" rel="noopener" href="/privacy-policy"
-          >Política de Privacidad</a
-        >
-      </label>
-      <input type="hidden" name="estimated_price" id="estimated-price-field" value="0" />
-      <div class="customPackActions fieldFull">
-        <button type="submit" class="btn btn-oscuro">
-          <span class="btnText">Enviar selección</span>
-          <span class="spinner" hidden></span>
-        </button>
-        <button type="button" class="btn btn-linea" id="cancelPackForm"
-          >Cancelar</button
-        >
-      </div>
-    </form>
-
-    <p id="custom-pack-message" class="formMessage" aria-live="polite"></p>
+    <button type="button" class="btn btn-oscuro" id="nextBtn" hidden>
+      Continuar →
+    </button>
   </section>
 
   <section class="notSure">
@@ -1030,49 +285,69 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
 
   <section class="policies">
     <p class="subtitles">Condiciones</p>
-    <h2 class="policiesTitle">Formas de pago y cancelaciones</h2>
+    <h2 class="policiesTitle">Formas de pago y condiciones</h2>
 
     <div class="policyGrid">
       <div class="policyBlock">
         <h3 class="policyHeading">Formas de pago</h3>
         <ul class="legalList">
-          <li>Hasta 3.000€: pago 50% al inicio / 50% a la entrega</li>
-          <li>Más de 3.000€: pago en 3 partes</li>
+          <li>Hasta 3.000€: pago 50% al inicio / 50% a la entrega final</li>
+          <li>Más de 3.000€: pago 40% al inicio / 30% en la revision / 30% en la entrega final</li>
+          <li>No se comienzara el trabajo hasta recibir el pago inicial</li>
         </ul>
       </div>
 
       <div class="policyBlock">
-        <h3 class="policyHeading">Cancelaciones</h3>
+        <h3 class="policyHeading">Alcances y revisiones</h3>
         <ul class="legalList">
-          <li>Se define un listado de entregables antes de empezar</li>
-          <li>Incluye 2 rondas de cambios sin coste adicional</li>
+          <li>Se define un listado cerrado de entregables antes de empezar</li>
+          <li>Incluye 2 rondas de revision de los entregables definidos sin coste adicional</li>
           <li>Cambios dentro de ese listado: sin cargo extra</li>
-          <li>El dinero ya pagado no se devuelve en caso de cancelación</li>
+          <li>Los pagos iniciales actúan como reserva del proyecto y agenda, por lo que no son reembolsables</li>
+        </ul>
+      </div>
+
+      <div class="policyBlock">
+        <h3 class="policyHeading">Tiempos y entregas</h3>
+        <ul class="legalList">
+          <li>Materiales: El cliente deberá proporcionar los textos, imágenes de producto y material legal necesario antes del inicio del desarrollo</li>
+          <li>Plazo: Las fechas estimadas de entrega requieren que el cliente cumpla con los tiempos acordados para enviar su feedback</li>
+          <li>Soporte web: Todos los desarrollos incluyen 15 dias de soporte técnico gratuito tras el lanzamiento para garantizar su perfecto funcionamiento (no incluye nuevo desarrollo o cambios de diseño)</li>
+          <li>Validez: Las propuestas y presupuestos presentados tienen una validez de 15 días</li>
         </ul>
       </div>
     </div>
   </section>
 
   <script>
-    const toggleBtn = document.querySelector("#togglePackForm");
-    const cancelBtn = document.querySelector("#cancelPackForm");
+    const toggleBtn = document.querySelector("#togglePackForm") as HTMLButtonElement;
+    const nextBtn = document.querySelector("#nextBtn") as HTMLButtonElement;
+    const cancelBtns = document.querySelectorAll<HTMLButtonElement>(".cancelPackFlow");
+    const backBtns = document.querySelectorAll<HTMLButtonElement>(".backBtn");
     const form = document.querySelector("#custom-pack-form") as HTMLFormElement;
-    const message = document.querySelector("#custom-pack-message");
-    const servicesList = document.querySelector(".servicesList");
-    const servicesPacks = document.querySelector(".servicesPacks");
-    const submitBtn = form?.querySelector(
-      "button[type=submit]",
-    ) as HTMLButtonElement;
+    const message = document.querySelector("#custom-pack-message") as HTMLElement;
+    const servicesPacks = document.querySelector(".servicesPacks") as HTMLElement;
+    const wizard = document.querySelector("#wizard") as HTMLElement;
+    const track = document.querySelector("#wizardTrack") as HTMLElement;
+    const panels = Array.from(document.querySelectorAll<HTMLElement>(".wizardPanel"));
+    const submitBtn = form?.querySelector("button[type=submit]") as HTMLButtonElement;
     const btnText = submitBtn?.querySelector(".btnText") as HTMLElement;
     const spinner = submitBtn?.querySelector(".spinner") as HTMLElement;
     const estimatedPriceField = document.querySelector(
       "#estimated-price-field",
     ) as HTMLInputElement;
 
+    let currentStep = 0;
+    let collapseTimer: number | undefined;
+
+    function scrollToWizard() {
+      setTimeout(() => wizard.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+    }
+
     function updateEstimatedPrice() {
-      if (!form || !estimatedPriceField) return;
+      if (!estimatedPriceField) return;
       const checked = document.querySelectorAll<HTMLInputElement>(
-        'input[name="services"]:checked',
+        'input[name="services"]:checked, input[name="redes"]:checked',
       );
       let total = 0;
       checked.forEach((input) => {
@@ -1081,31 +356,106 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
       estimatedPriceField.value = String(total);
     }
 
-    document.addEventListener("change", (event) => {
-      const target = event.target as HTMLInputElement;
-      if (target?.name === "services") {
-        updateEstimatedPrice();
+    // El botón "Continuar" solo aparece si el paso actual tiene algo elegido
+    function updateNext() {
+      const customizing = servicesPacks.classList.contains("customizing");
+      const hasPack = !!document.querySelector('input[name="services"]:checked');
+      const hasRedes = !!document.querySelector('input[name="redes"]:checked');
+      nextBtn.hidden = !(
+        customizing &&
+        ((currentStep === 0 && hasPack) || (currentStep === 1 && hasRedes))
+      );
+    }
+
+    function goToStep(step: number, animate = true) {
+      currentStep = step;
+      window.clearTimeout(collapseTimer);
+
+      // El panel de destino tiene que ocupar espacio antes de deslizar
+      panels[step].classList.remove("inactive");
+
+      if (!animate) track.style.transition = "none";
+      track.style.transform = `translateX(-${step * 100}%)`;
+
+      // Cuando termina el deslizamiento, colapsamos los demás para que
+      // la página no tenga la altura del panel más alto
+      const collapseOthers = () =>
+        panels.forEach((p, i) => p.classList.toggle("inactive", i !== step));
+
+      if (animate) {
+        collapseTimer = window.setTimeout(collapseOthers, 450);
+      } else {
+        collapseOthers();
+        track.getBoundingClientRect(); // fuerza reflow
+        track.style.transition = "";
+      }
+
+      updateNext();
+    }
+
+    function resetFlow() {
+      document
+        .querySelectorAll<HTMLInputElement>('input[name="services"], input[name="redes"]')
+        .forEach((input) => (input.checked = false));
+      form.reset();
+      updateEstimatedPrice();
+      message.textContent = "";
+      servicesPacks.classList.remove("customizing");
+      toggleBtn.hidden = false;
+      goToStep(0);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // Igual que resetFlow pero sin animación ni scroll (carga de página)
+    function clearOnLoad() {
+      document
+        .querySelectorAll<HTMLInputElement>('input[name="services"], input[name="redes"]')
+        .forEach((input) => (input.checked = false));
+      form.reset();
+      updateEstimatedPrice();
+      message.textContent = "";
+      servicesPacks.classList.remove("customizing");
+      toggleBtn.hidden = false;
+      goToStep(0, false);
+    }
+
+    // "pageshow" se dispara en la carga normal, en recargas y al volver con "atrás" (bfcache)
+    window.addEventListener("pageshow", clearOnLoad);
+
+    // Botón "Haz tu presupuesto": activa la selección de packs
+    toggleBtn?.addEventListener("click", () => {
+      servicesPacks.classList.add("customizing");
+      toggleBtn.hidden = true;
+      updateNext();
+      scrollToWizard();
+    });
+
+    // Botón "Continuar"
+      nextBtn?.addEventListener("click", () => {
+      if (currentStep < 2) {
+        goToStep(currentStep + 1);
       }
     });
 
-    toggleBtn?.addEventListener("click", () => {
-      form.hidden = false;
-      toggleBtn.hidden = true;
-      servicesList?.classList.add("customizing");
-      servicesPacks?.classList.add("customizing");
-      window.scrollBy({ top: -120, behavior: "smooth" });
+    // Botones "Volver"
+    backBtns.forEach((btn) =>
+      btn.addEventListener("click", () => {
+        goToStep(Number(btn.dataset.back));
+      }),
+    );
+
+    // Al marcar/desmarcar algo: recalcula precio y decide si se muestra "Continuar"
+    document.addEventListener("change", (event) => {
+      const target = event.target as HTMLInputElement;
+      if (!target) return;
+
+      if (target.name === "services" || target.name === "redes") {
+        updateEstimatedPrice();
+        updateNext();
+      }
     });
 
-    cancelBtn?.addEventListener("click", () => {
-      form.reset();
-      updateEstimatedPrice();
-      form.hidden = true;
-      toggleBtn.hidden = false;
-      message!.textContent = "";
-      servicesList?.classList.remove("customizing");
-      servicesPacks?.classList.remove("customizing");
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
+    cancelBtns.forEach((btn) => btn.addEventListener("click", resetFlow));
 
     form?.addEventListener("submit", async (event) => {
       event.preventDefault();
@@ -1124,19 +474,13 @@ function priceAfter(base: number, discount: number, extraPercent = 0) {
         });
 
         if (response.ok) {
-          message!.textContent = "Mensaje recibido :)";
-          form.reset();
-          updateEstimatedPrice();
-          form.hidden = true;
-          toggleBtn!.hidden = false;
-          servicesList?.classList.remove("customizing");
-          servicesPacks?.classList.remove("customizing");
-          window.scrollTo({ top: 0, behavior: "smooth" });
+          resetFlow();
+          message.textContent = "Mensaje recibido :)";
         } else {
-          message!.textContent = "Ha ocurrido un problema. Inténtalo de nuevo.";
+          message.textContent = "Ha ocurrido un problema. Inténtalo de nuevo.";
         }
       } catch (error) {
-        message!.textContent = "No hemos podido enviar el mensaje.";
+        message.textContent = "No hemos podido enviar el mensaje.";
       } finally {
         submitBtn.disabled = false;
         btnText.hidden = false;
